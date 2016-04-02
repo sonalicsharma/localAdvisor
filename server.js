@@ -1,12 +1,15 @@
-var http = require('http');
-var port = 1337;
+var express= require ("express");
+var app= express();
+//var mongojs=require ("mongojs");
+//var db=mongojs('contactlist', ['contactlist']);
+//var bodyParser=require('body-parser');
 
-http.createServer(function(req, res) {
-      res.writeHead(200, {
-            'Content-Type': 'text/plain'
-      });
+app.use(express.static(__dirname+ "/public"));
+//app.use(bodyParser.json());
+app.get('/aa', function(req,res){
+  //  console.log("I received a GET request");  
+	res.send('maina');
+});
 
-      res.end("Hello from server");
-}).listen(port);
-
-console.log('Web server running at http://localhost:'+ port);
+app.listen(3001);
+console.log("Server running on port 3001");
