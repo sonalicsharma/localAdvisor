@@ -5,11 +5,9 @@ var app= express();
 //var bodyParser=require('body-parser');
 
 app.use(express.static(__dirname+ "/public"));
+app.use("/bower_components", express.static(__dirname+ "/bower_components"));
 //app.use(bodyParser.json());
-app.get('/aa', function(req,res){
-  //  console.log("I received a GET request");  
-	res.send('maina');
-});
+
 
 app.listen(3001);
 console.log("Server running on port 3001");
