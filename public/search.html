@@ -1,14 +1,124 @@
-<!DOCTYPE html>
-<html lang="en-US">
-<script src="bower_components/angular/angular.min.js"></script>
-<link rel="stylesheet" type="text/css"  href="css/bootstrap.css">
-<body>
+    <!DOCTYPE html>
+    <html lang="en-US">
+    <script src="bower_components/angular/angular.min.js"></script>
+    <!--<link rel="stylesheet" type="text/css"  href="css/bootstrap.min.css">-->
+      <!-- Mobile viewport optimized -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+      <link rel="stylesheet" type="text/css"  href="custom.css">
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-<div ng-app="">
- 	<p>Name : <input type="text" ng-model="name"></p>
- 	<h1>Hello {{name}}</h1>
-</div>
+    <body>
+    <div ng-app="">
+        <div class="container"> 
+          <div class="row" id="feature">
+            <div class="col-sm-4 feature">
+                <a href="http://www.accuweather.com/en/us/champaign-il/61820/weather-forecast/328774" class="aw-widget-legal"></a>
+                <div id="awcc1460247631085" class="aw-widget-current"  data-locationkey="" data-unit="f" data-language="en-us" data-useip="true" data-uid="awcc1460247631085">
+                </div>
+                <script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
+            </div>
+            <div class="col-sm-4 feature">
+                <iframe id="forecast_embed" type="text/html" frameborder="0" height="245" width="100%" src="http://forecast.io/embed/#lat=42.3583&lon=-71.0603&name=Downtown Boston"> </iframe>
+            </div>
 
-</body>
-</html>
+            </div>
+
+        <h2>Search</h2>
+            <div class="row">
+                <div class="input-group">    		 
+                    <input type="text" class="form-control"  placeholder="Please type a location.." id="search_key" value="">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="submit">  Search  </button>
+                   </span>
+                </div>
+            </div>             
+        <hr>
+        <div class="row" id="feature">
+            <div class="col-sm-4 feature">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Food
+                        <span class="pull-right glyphicon glyphicon-cutlery clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>                    
+                        </h3>
+                    </div><!-- end panel-heading -->
+                        <p>Food...</p>
+                    <!--<img src="img/rest.png"  class="img-circle">
+                <a href=# target="_blank" class="btn btn-warning btn-block">See More..</a>-->
+                </div><!-- end panel -->
+            </div><!-- end feature -->
+
+            <div class="col-sm-4 feature">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Sightseeing
+                            <span class="pull-right glyphicon glyphicon-globe clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span></h3>
+                    </div><!-- end panel-heading -->
+                    <p>Sightseeing..</p>
+                  <!--	  <img src="img/sight.jpg" alt="Bootstrap 3" class="img-circle">
+                          <a href=# target="_blank" class="btn btn-danger btn-block">See more..</a>-->
+                </div><!-- end panel -->
+            </div><!-- end feature -->
+
+            <div class="col-sm-4 feature">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Events
+                            <span class="pull-right glyphicon glyphicon-music clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span></h3>
+                    </div><!-- end panel-heading -->
+                    <p>Events..</p>
+                 <!--	<img src="img/event.png" alt="Bootstrap 3" class="img-circle">
+                        <a href=# target="_blank" class="btn btn-info btn-block">See More..</a> -->
+                </div><!-- end panel -->
+            </div><!-- end feature -->
+        </div>
+        <div class="row" id="feature">
+                <div class="col-sm-4 feature">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Coffee
+                                <span class="pull-right glyphicon glyphicon-glass clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span></h3>
+                        </div><!-- end panel-heading -->
+                        <img src=# alt="Bootstrap 3" class="img-circle">
+
+                        <p>Breakfast...</p>
+
+                        <!--	<a href=# target="_blank" class="btn btn-warning btn-block">See More..</a>-->
+                    </div><!-- end panel -->
+                </div><!-- end feature -->
+
+                <div class="col-sm-4 feature">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Active life
+                                <span class="pull-right glyphicon glyphicon-zoom-in clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span></h3>
+                        </div><!-- end panel-heading -->
+                        <img src=# alt="Bootstrap 3" class="img-circle">
+
+                        <p>Sightseeing..</p>
+
+                    <!--		<a href=# target="_blank" class="btn btn-danger btn-block">See more..</a>-->
+                    </div><!-- end panel -->
+                </div><!-- end feature -->
+
+                <div class="col-sm-4 feature">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Arts & Entertainment
+                                <span class="pull-right glyphicon glyphicon-camera clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span></h3>
+                        </div><!-- end panel-heading -->
+                        <img src=# alt="Bootstrap 3" class="img-circle">
+
+                        <p>Shopping..</p>
+
+                    </div><!-- end panel -->
+                </div><!-- end feature --> 
+            </div>
+        </div> <!-- container -->
+    </div> <!-- ng app -->
+
+    </body>
+    </html>
 
