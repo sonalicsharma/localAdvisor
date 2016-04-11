@@ -10,8 +10,8 @@ var yelp = new Yelp({
   token_secret: 'ybJeQ2ZZMsmGwfWg2U_6XkFwaLI',
 });
 
-router.get('/:location', function(req, res, next) {
-  yelp.search({ term: 'restaurant', location: req.params.location, limit: 10})
+router.get('/:term/:location', function(req, res, next) {
+  yelp.search({ term: req.params.term, location: req.params.location, limit: 10})
   .then(function (data) {
 	res.send(data.businesses);
   })
