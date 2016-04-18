@@ -29,6 +29,7 @@ localAdvisorApp.controller('localAdvisorCtrl', function ($scope, $http, uiGmapGo
   $http.get('eventful/' + $scope.location).success(function(data) {
     $scope.eventlistings = data;
   });
+  
   $scope.setLocation = function(location) {
     $scope.yelplistings = [];
     $scope.coffeelistings = [];
@@ -61,6 +62,14 @@ localAdvisorApp.controller('localAdvisorCtrl', function ($scope, $http, uiGmapGo
 	  scrollTop: $('#tf-search').offset().top - 50
 	  },1000);
   };
+
+  $scope.addUser=function() {
+      $http.post('register',$scope.user).success(function(response){
+        alert('You are registered successfully');
+        $scope.registerSuccessMessage='You are registered successfully';
+        console.log("hi");
+      });
+  }; 
 });
 
 
