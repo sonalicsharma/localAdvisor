@@ -11,7 +11,7 @@ var yelp = new Yelp({
 });
 
 router.get('/:term/:location', function(req, res, next) {
-  yelp.search({ term: req.params.term, location: req.params.location, limit: 10})
+  yelp.search({ term: req.params.term, location: req.params.location, limit: 5})
   .then(function (data) {
 	res.send(data.businesses);
   })

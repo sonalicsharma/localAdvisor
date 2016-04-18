@@ -47,7 +47,7 @@
 						<span class="pull-right glyphicon glyphicon-cutlery clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>                    
 					</h3>
 				</div><!-- end panel-heading -->
-				  <ul>
+				  <ul class="list-unstyled">
 					<li ng-repeat="listing in yelplistings">
 					  <span>{{listing.name}} <img ng-src="{{listing.rating_img_url}}" alt="{{listing.rating}}"><a class="pull-right"  target="_blank" href="{{listing.url}}">(Go to Yelp)</a></span>
 					  <p>{{listing.location.display_address.join(', ')}}</p>
@@ -64,7 +64,7 @@
 					<h3 class="panel-title">Upcoming Events (What's up?)
 						<span class="pull-right glyphicon glyphicon-music clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span></h3>
 				</div><!-- end panel-heading -->
-				  <ul>
+				  <ul class="list-unstyled">
 					<li ng-repeat="listing in eventlistings">
 					  <span>{{listing.title}} <a class="pull-right"  target="_blank" href="{{listing.url}}">(Details from Eventful)</a></span>
 					  <p>{{listing.start_time}} {{listing.venue_name}}</p>

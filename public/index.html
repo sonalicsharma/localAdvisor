@@ -29,6 +29,7 @@
     <link href="../css/owl.theme.css" rel="stylesheet" media="screen">
 
     <link rel="stylesheet" type="text/css"  href="../css/style.css">
+    <link rel="stylesheet" type="text/css"  href="../css/custom.css">
     <link rel="stylesheet" type="text/css" href="../css/responsive.css">
 
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
@@ -42,6 +43,7 @@
 	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/SmoothScroll.js"></script>
     <script type="text/javascript" src="../js/jquery.isotope.js"></script>
+    <script src="js/controllers.js"></script>
 
     <script src="../js/owl.carousel.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -51,7 +53,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body ng-controller="localAdvisorCtrl">
     <!-- Navigation
     ==========================================-->
     <nav id="tf-menu" class="navbar navbar-default navbar-fixed-top">
@@ -66,10 +68,17 @@
           </button>
           <a class="navbar-brand" href="index.html">Local Advisor</a>
         </div>
-
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
+			<li>
+				<div class="input-group page-scroll">
+				<input type="search" class="form-control input-sm"  placeholder="Please type a location.." ng-model="location">
+				<span class="input-group-btn">
+                    <button class="btn btn-primary btn-sm" ng-click="setLocation(location)" > Search  </button> 
+               	</span>
+            	</div>
+			</li>
             <li><a href="#tf-home" class="page-scroll">Home</a></li>
             <li><a href="#tf-about" class="page-scroll">About</a></li>
             <li><a href="#tf-services" class="page-scroll">Services</a></li>
@@ -87,10 +96,97 @@
     <div id="tf-home" class="text-center">
         <div class="overlay">
             <div class="content">
-                <h1>Welcome on <strong><span class="color">Local Advisor</span></strong></h1>
+                <h1>Welcome to <strong><span class="color">Local Advisor</span></strong></h1>
                 <p class="lead">“A journey of a thousand miles starts with a single step.” <strong>– Lao Tzu</strong></p>
                 <a href="#tf-about" class="fa fa-angle-down page-scroll"></a>
             </div>
+        </div>
+    </div>
+
+    <!-- Search Page
+    ==========================================-->
+    <div id="tf-search" class="text-center">
+        <div class="container">
+        	<div class="row">
+            	<iframe id="forecast_embed" type="text/html" frameborder="0" height="245" width="100%" ng-src="{{weatherUrl}}"> </iframe>
+        	</div>
+			<div class="row">
+				<div class="col-md-6 feature">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">Top Restaurants (Yelp says so!!!)
+								<span class="pull-right glyphicon glyphicon-cutlery clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>                    
+							</h3>
+						</div><!-- end panel-heading -->
+						  <ul class="list-unstyled listings">
+							<li ng-repeat="listing in yelplistings" class="thumbnail listing">
+							  <img class="thumb" ng-src="{{listing.image_url}}" alt="{{listing.name}}">
+							  <span>{{listing.name}} <img ng-src="{{listing.rating_img_url}}" alt="{{listing.rating}}"><a class="pull-right"  target="_blank" href="{{listing.url}}">(Go to Yelp)</a></span>
+							  <p>{{listing.location.display_address.join(', ')}}</p>
+							  <p>{{listing.display_phone}}</p>
+							</li>
+						  </ul>
+						<!--a href=# target="_blank" class="btn btn-warning btn-block">See More..</a>-->
+					</div><!-- end panel -->
+				</div><!-- end feature -->
+
+				<div class="col-md-6 feature">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">Upcoming Music Events (Let's Rock!)
+								<span class="pull-right glyphicon glyphicon-music clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span></h3>
+						</div><!-- end panel-heading -->
+						  <ul class="list-unstyled listings">
+							<li ng-repeat="listing in eventlistings" class="thumbnail listing">
+							  <img class="thumb" ng-src="{{listing.image.url}}" alt="Oops! No image found! :(">
+							  <span>{{listing.title}} <a class="pull-right"  target="_blank" href="{{listing.url}}">(Details from Eventful)</a></span>
+							  <p>{{listing.start_time}} {{listing.venue_name}}</p>
+							  <p>{{listing.venue_address}}, {{listing.city_name}}, {{listing.postal_code}}</p>
+							</li>
+						  </ul>
+						<!--a href=# target="_blank" class="btn btn-info btn-block">See More..</a> -->
+					</div><!-- end panel -->
+				</div><!-- end feature -->
+		    </div>
+			<div class="row">
+				<div class="col-md-6 feature">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">A Lot Can Happen Over A Coffee...
+								<span class="pull-right glyphicon glyphicon-leaf clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>                    
+							</h3>
+						</div><!-- end panel-heading -->
+						  <ul class="list-unstyled listings">
+							<li ng-repeat="listing in coffeelistings" class="thumbnail listing">
+							  <img class="thumb" ng-src="{{listing.image_url}}" alt="{{listing.name}}">
+							  <span>{{listing.name}} <img ng-src="{{listing.rating_img_url}}" alt="{{listing.rating}}"><a class="pull-right"  target="_blank" href="{{listing.url}}">(Go to Yelp)</a></span>
+							  <p>{{listing.location.display_address.join(', ')}}</p>
+							  <p>{{listing.display_phone}}</p>
+							</li>
+						  </ul>
+						<!--a href=# target="_blank" class="btn btn-warning btn-block">See More..</a>-->
+					</div><!-- end panel -->
+				</div><!-- end feature -->
+
+				<div class="col-md-6 feature">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">Let's Make A Night To Remember...
+								<span class="pull-right glyphicon glyphicon-glass clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>                    
+							</h3>
+						</div><!-- end panel-heading -->
+						  <ul class="list-unstyled listings">
+							<li ng-repeat="listing in nightlifelistings" class="thumbnail listing">
+							  <img class="thumb" ng-src="{{listing.image_url}}" alt="{{listing.name}}">
+							  <span>{{listing.name}} <img ng-src="{{listing.rating_img_url}}" alt="{{listing.rating}}"><a class="pull-right"  target="_blank" href="{{listing.url}}">(Go to Yelp)</a></span>
+							  <p>{{listing.location.display_address.join(', ')}}</p>
+							  <p>{{listing.display_phone}}</p>
+							</li>
+						  </ul>
+						<!--a href=# target="_blank" class="btn btn-warning btn-block">See More..</a>-->
+					</div><!-- end panel -->
+				</div><!-- end feature -->
+			</div>
         </div>
     </div>
 

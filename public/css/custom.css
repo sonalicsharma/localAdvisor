@@ -1,3 +1,27 @@
+/* search box */
+li .input-group {
+  max-width: 300px;
+  margin-top: 6px;
+}
+
+.listings li {
+  clear: both;
+  height: 100px;
+  padding-top: 15px;
+  text-align: left;
+}
+.thumbnail {
+  margin-bottom: 10px;
+}
+.thumb {
+  float: left;
+  margin: -0.5em 1em .5em 0;
+  padding-bottom: 1em;
+  padding-right: 1em;
+  height: 90px;
+  width: 90px;
+}
+
 .features img {
   margin: 0 0 20px;
 }

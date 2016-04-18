@@ -10,14 +10,11 @@ router.get('/:location', function(req, res, next) {
     if(err){
       return console.error(err);
     }
-	console.log(data);
-    console.log('Recieved ' + data.search.total_items + ' events');
-    console.log('Event listings: ');
-    //print the title of each event 
-    for(var i in data.search.events.event){
-      console.log(data.search.events.event[i].title);
-    }
-	res.send(data.search.events.event);
+	var events = data.search.events.event;
+	if (events && events.length > 5) {
+	  events = events.slice(0, 5);
+	}
+	res.send(events);
   });
 });
 
