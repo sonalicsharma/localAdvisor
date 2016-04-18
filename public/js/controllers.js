@@ -66,8 +66,11 @@ localAdvisorApp.controller('localAdvisorCtrl', function ($scope, $http, uiGmapGo
   $scope.addUser=function() {
       $http.post('register',$scope.user).success(function(response){
         alert('You are registered successfully');
-        $scope.registerSuccessMessage='You are registered successfully';
-        console.log("hi");
+      });
+  }; 
+  $scope.loginUser=function() {
+      $http.post('login',$scope.login).success(function(response){
+        alert('You have logged in successfully');
       });
   }; 
 });

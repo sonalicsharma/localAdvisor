@@ -4,7 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 var eventful = require('./routes/eventful');
 var yelp = require('./routes/yelp');
@@ -19,13 +20,43 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use("/bower_components", express.static(__dirname+ "/bower_components"));
 
 app.use('/eventful', eventful);
 app.use('/yelp', yelp);
+//app.use('/register', register);
+// passport config
+var Accounts = require('./models/account');
+passport.use(new LocalStrategy(Accounts.authenticate()));
+passport.serializeUser(Accounts.serializeUser());
+passport.deserializeUser(Accounts.deserializeUser());
 
-app.use('/register', register);
+// mongoose
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/LocalAdvisor');
+
+app.post('/register', function(req, res) {
+  console.log(req.body);
+  Accounts.register(new Accounts({ username : req.body.username }), req.body.password, function(err, account) {
+        if (err) {
+            res.json(err);
+        }
+
+        passport.authenticate('local')(req, res, function () {
+            res.redirect('/');
+        });
+    });
+});
+app.post('/login', passport.authenticate('local'), function(req, res) {
+  console.log('success');
+  res.redirect('/');
+});
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
