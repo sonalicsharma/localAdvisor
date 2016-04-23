@@ -10,6 +10,9 @@
     <meta name="description" content="Local Advisor website">
     <meta name="keywords" content="bootstrap theme, portfolio template, digital agency, onepage, mobile responsive">
     <meta name="author" content="ThemeForces.com">
+   <meta http-Equiv="Cache-Control" Content="no-cache">
+    <meta http-Equiv="Pragma" Content="no-cache">
+    <meta http-Equiv="Expires" Content="0">
 
     <!-- Favicons
     ================================================== -->
@@ -39,8 +42,11 @@
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src='bower_components/lodash/lodash.js'></script>
 	<script src="bower_components/angular/angular.min.js"></script>
-	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src='bower_components/angular-simple-logger/dist/angular-simple-logger.min.js'></script>
+    <script src='bower_components/angular-google-maps/dist/angular-google-maps.min.js'></script>
     <script type="text/javascript" src="../js/SmoothScroll.js"></script>
     <script type="text/javascript" src="../js/jquery.isotope.js"></script>
     <script src="js/controllers.js"></script>
@@ -86,7 +92,7 @@
             <li><a href="#tf-signup" class="page-scroll">Sign Up</a></li>
             <li><a href="#tf-signin" class="page-scroll">Sign In</a></li>
           </ul>
-          </ul>
+          
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
@@ -107,9 +113,14 @@
     ==========================================-->
     <div id="tf-search" class="text-center">
         <div class="container">
-        	<div class="row">
+            <div class="row">
+              <div class="col-md-6">
             	<iframe id="forecast_embed" type="text/html" frameborder="0" height="245" width="100%" ng-src="{{weatherUrl}}"> </iframe>
-        	</div>
+              </div>
+              <div class="col-md-6">
+                <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>  
+              </div>
+           </div>
 			<div class="row">
 				<div class="col-md-6 feature">
 					<div class="panel panel-info">
@@ -429,6 +440,7 @@
     <!-- Javascripts
     ================================================== -->
     <script type="text/javascript" src="../js/main.js"></script>
+    
 
   </body>
 </html>
