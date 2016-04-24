@@ -29,8 +29,15 @@ localAdvisorApp.controller('localAdvisorCtrl', function ($scope, $http, uiGmapGo
   $http.get('eventful/' + $scope.location).success(function(data) {
     $scope.eventlistings = data;
   });
+  $http.get('yelp/Active Life/'+ $scope.location).success(function(data) {
+    $scope.ActiveLifelistings = data;
+  });
   
-  $scope.weather = weatherService.getWeather($scope.lat, $scope.lon);
+  $http.get('expedia/' + $scope.lat + ',' + $scope.lon).success(function(data) {
+    console.log(data);
+    $scope.hotels = data;
+  })
+  $scope.weather = weatherService.getWeather($scope.lat, $scope.lon, $scope.location);
   
   $scope.setLocation = function(location) {
     $scope.yelplistings = [];
@@ -45,7 +52,7 @@ localAdvisorApp.controller('localAdvisorCtrl', function ($scope, $http, uiGmapGo
 		$( '#forecast_embed' ).attr( 'src', function ( i, val ) { return val; });
 		//alert($scope.weatherUrl);
       
-       $scope.weather = weatherService.getWeather($scope.lat, $scope.lon);
+       $scope.weather = weatherService.getWeather($scope.lat, $scope.lon, $scope.location);
       
         $scope.map = { center: { latitude: $scope.lat, longitude: $scope.lon }, zoom: 12 };
       
@@ -70,15 +77,16 @@ localAdvisorApp.controller('localAdvisorCtrl', function ($scope, $http, uiGmapGo
 
 localAdvisorApp.factory('weatherService', function($http) {
     return { 
-      getWeather: function(lat, lon) {
+      getWeather: function(lat, lon, location) {
         var weather = { temp: {}, clouds: null };
         
-        $http.jsonp('http://api.openweathermap.org/data/2.5/weather?lat='+ lat+'&lon='+lon+'&units=metric&callback=JSON_CALLBACK&appid=fd696179217da623fb83ae461c01af05').success(function(data) {
+        $http.jsonp('http://api.openweathermap.org/data/2.5/weather?lat='+ lat+'&lon='+lon+'&units=imperial&callback=JSON_CALLBACK&appid=fd696179217da623fb83ae461c01af05').success(function(data) {
             if (data) {
                 if (data.main) {
                     weather.temp.current = data.main.temp;
                     weather.temp.min = data.main.temp_min;
                     weather.temp.max = data.main.temp_max;
+                    weather.temp.location=location;
                 }
                 weather.clouds = data.clouds ? data.clouds.all : undefined;
             }
@@ -95,7 +103,7 @@ localAdvisorApp.filter('temp', function($filter) {
             precision = 1;
         }
         var numberFilter = $filter('number');
-        return numberFilter(input, precision) + '\u00B0C';
+        return numberFilter(input, precision) + '\u00B0F';
     };
 });
 
@@ -117,6 +125,6 @@ localAdvisorApp.directive('weatherIcon', function() {
                 }
             };
         },
-        template: '<div style="float:left"><img ng-src="{{ imgurl() }}"></div>'
+        template: '<div style="float:center"><img ng-src="{{ imgurl() }}"></div>'
     };
 });

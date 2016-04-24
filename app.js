@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var eventful = require('./routes/eventful');
 var yelp = require('./routes/yelp');
+var expedia = require('./routes/expedia');
 var app = express();
 
 // view engine setup
@@ -22,6 +23,7 @@ app.use("/bower_components", express.static(__dirname+ "/bower_components"));
 
 app.use('/eventful', eventful);
 app.use('/yelp', yelp);
+app.use('/expedia', expedia);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
