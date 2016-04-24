@@ -1,4 +1,4 @@
-angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$http', 'uiGmapGoogleMapApi', '$uibModal', function ($scope, $http, uiGmapGoogleMapApi, $uibModal) { 
+angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$http', 'uiGmapGoogleMapApi', '$uibModal', 'AuthService', function ($scope, $http, uiGmapGoogleMapApi, $uibModal, AuthService) { 
   $scope.location = 'Champaign, IL';
   $scope.lat="40.1164204";
   $scope.lon="-88.2433829";
@@ -54,17 +54,6 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
 	  },1000);
   };
 
-  $scope.addUser=function() {
-      $http.post('register',$scope.user).success(function(response){
-        alert('You are registered successfully');
-      });
-  }; 
-  $scope.loginUser=function() {
-      $http.post('login',$scope.login).success(function(response){
-        alert('You have logged in successfully');
-      });
-  }; 
-
   $scope.showLogin = function(){
 	var modal = $uibModal.open({
         controller:"userController",
@@ -91,32 +80,29 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
       $scope.greetings = 'Hi ' + username + '!';
     });
   };
-  $scope.checkStatus=function() {
-      $http.get('status').success(function(response){
-        alert(response);
-		console.log(response);
-      });
+  $scope.isLoggedIn = function() {
+	return AuthService.isLoggedIn();
   }; 
   $scope.logout=function() {
-      $http.get('logout').success(function(response){
-		console.log(response);
+	AuthService.logout()
+	  .then(function() {
 		$scope.username = "";
 		$scope.greetings = '';
       });
   }; 
 }]);
 
-angular.module('localAdvisorApp').controller('userController', ['$scope', '$http', '$uibModalInstance', 'items', function ($scope, $http, $uibModalInstance, items) {
+angular.module('localAdvisorApp').controller('userController', ['$scope', '$http', '$uibModalInstance', 'items', 'AuthService', function ($scope, $http, $uibModalInstance, items, AuthService) {
   $scope.loginUser = function() {
-      $http.post('login',$scope.login)
-      .success(function(response){
+      AuthService.login($scope.login)
+      .then(function(){
 		$uibModalInstance.close($scope.login.username);
       });
   };
 
   $scope.register = function() {
-      $http.post('register',$scope.user)
-      .success(function(response){
+	AuthService.register($scope.user)
+	  .then(function () {
 		$uibModalInstance.close($scope.user.username);
       });
   };

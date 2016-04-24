@@ -46,15 +46,13 @@ app.post('/register', function(req, res) {
         }
 
         passport.authenticate('local')(req, res, function () {
-            res.redirect('/');
+			return res.status(200).json({status: 'Registration successful!'});
         });
     });
 });
 
 app.post('/login', passport.authenticate('local'), function(req, res) {
-  console.log('success');
-  console.log(req.isAuthenticated());
-  res.redirect('/');
+  res.status(200).json({status: 'Login successful!'});
 });
 
 app.get('/logout', function(req, res) {

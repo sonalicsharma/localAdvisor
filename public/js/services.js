@@ -13,41 +13,45 @@ angular.module('localAdvisorApp').factory('AuthService',
       logout: logout,
       register: register
     });
+	function isLoggedIn() {
+	  return user ? true : false;
+	}
+
+	// TODO: needs work
     function getUserStatus() {
       return $http.get('/status')
       // handle success
       .success(function (data) {
         if(data.status){
-          user = true;
+          user = user;
         } else {
-          user = false;
+          user = null;
         }
       })
       // handle error
       .error(function (data) {
-        user = false;
+        user = null;
       });
     }
 
-    function login(username, password) {
+    function login(userData) {
       // create a new instance of deferred
       var deferred = $q.defer();
       // send a post request to the server
-      $http.post('/login',
-        {username: username, password: password})
+      $http.post('/login', userData)
         // handle success
         .success(function (data, status) {
           if(status === 200 && data.status){
-            user = true;
+            user = userData.username;
             deferred.resolve();
           } else {
-            user = false;
+            user = null;
             deferred.reject();
           }
         })
         // handle error
         .error(function (data) {
-          user = false;
+          user = null;
           deferred.reject();
         });
 
@@ -62,34 +66,36 @@ angular.module('localAdvisorApp').factory('AuthService',
       $http.get('/logout')
         // handle success
         .success(function (data) {
-          user = false;
+          user = null;
           deferred.resolve();
         })
         // handle error
         .error(function (data) {
-          user = false;
+          user = null;
           deferred.reject();
         });
       // return promise object
       return deferred.promise;
     }
 
-    function register(username, password) {
+    function register(userData) {
       // create a new instance of deferred
       var deferred = $q.defer();
       // send a post request to the server
-      $http.post('/user/register',
-        {username: username, password: password})
+      $http.post('/register', userData)
         // handle success
         .success(function (data, status) {
           if(status === 200 && data.status){
+			user = userData.username;
             deferred.resolve();
           } else {
+		    user = null;
             deferred.reject();
           }
         })
         // handle error
         .error(function (data) {
+          user = null;
           deferred.reject();
         });
 
