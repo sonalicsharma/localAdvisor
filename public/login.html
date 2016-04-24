@@ -3,15 +3,22 @@
 <html lang="en-US" ng-app="localAdvisorApp">
   <head>
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <script src="../bower_components/angular/angular.min.js"></script>
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src='bower_components/lodash/lodash.js'></script>
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src='bower_components/angular-simple-logger/dist/angular-simple-logger.min.js'></script>
+    <script src='bower_components/angular-google-maps/dist/angular-google-maps.min.js'></script>
+    <script src="../bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="js/controllers.js"></script>
     <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
   </head>
   <body ng-controller="localAdvisorCtrl">
     <div class="container">
       <h1>Login</h1>
+	  <h2>{{greetings}}</h2>
+		<button class="btn btn-primary" ng-click="showLogin()">Test</button>
       <div class="form-container">
         <form>
             <div class="form-group">

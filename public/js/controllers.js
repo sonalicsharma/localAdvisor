@@ -1,4 +1,4 @@
-var localAdvisorApp = angular.module('localAdvisorApp', ['uiGmapgoogle-maps']).config(["$sceProvider", "uiGmapGoogleMapApiProvider", function($sceProvider, uiGmapGoogleMapApiProvider) {
+var localAdvisorApp = angular.module('localAdvisorApp', ['uiGmapgoogle-maps', 'ui.bootstrap']).config(["$sceProvider", "uiGmapGoogleMapApiProvider", function($sceProvider, uiGmapGoogleMapApiProvider) {
   $sceProvider.enabled(false);
   uiGmapGoogleMapApiProvider.configure({
         key: 'AIzaSyCmY50zYduZyT4egMMdmHH9GGkTiIvhF_8',
@@ -7,7 +7,7 @@ var localAdvisorApp = angular.module('localAdvisorApp', ['uiGmapgoogle-maps']).c
     });
 }]);
 
-localAdvisorApp.controller('localAdvisorCtrl', function ($scope, $http, uiGmapGoogleMapApi) {
+localAdvisorApp.controller('localAdvisorCtrl', function ($scope, $http, uiGmapGoogleMapApi, $uibModal) {
   $scope.location = 'Champaign, IL';
   $scope.lat="40.1164204";
   $scope.lon="-88.2433829";
@@ -73,6 +73,32 @@ localAdvisorApp.controller('localAdvisorCtrl', function ($scope, $http, uiGmapGo
         alert('You have logged in successfully');
       });
   }; 
+
+	$scope.showLogin = function(){
+		var modal = $uibModal.open(
+			{
+				controller:"loginController",
+				templateUrl:'partial/login.html',
+				resolve: {
+					items:function(){return {};}
+				}
+			})
+		modal.result.then(function(username){
+			$scope.username = username;
+			$scope.greetings = 'Hi ' + username + '!';
+		});
+	}
 });
 
+localAdvisorApp.controller('loginController', function ($scope, $http, $uibModalInstance, items) {
+  $scope.loginUser = function() {
+      $http.post('login',$scope.login)
+      .success(function(response){
+		$uibModalInstance.close($scope.login.username);
+      });
+  };
 
+  $scope.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  }; 
+});
