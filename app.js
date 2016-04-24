@@ -10,6 +10,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var eventful = require('./routes/eventful');
 var yelp = require('./routes/yelp');
 var favorites = require('./routes/favorites');
+var expedia = require('./routes/expedia');
 var app = express();
 
 // view engine setup
@@ -28,6 +29,7 @@ app.use("/bower_components", express.static(__dirname+ "/bower_components"));
 
 app.use('/eventful', eventful);
 app.use('/yelp', yelp);
+app.use('/expedia', expedia);
 
 app.use('/favorites', favorites);
 
