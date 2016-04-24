@@ -21,6 +21,7 @@
   "dependencies": {
     "angular": "^1.5.0",
     "bootstrap": "~3.3.6",
-    "angular-google-maps": "^2.3.2"
+    "angular-google-maps": "^2.3.2",
+    "angular-weather": "^0.0.2"
   }
 }
