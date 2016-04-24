@@ -9,7 +9,7 @@ var LocalStrategy = require('passport-local').Strategy;
 
 var eventful = require('./routes/eventful');
 var yelp = require('./routes/yelp');
-var register = require('./routes/register');
+var favorites = require('./routes/favorites');
 var app = express();
 
 // view engine setup
@@ -28,6 +28,9 @@ app.use("/bower_components", express.static(__dirname+ "/bower_components"));
 
 app.use('/eventful', eventful);
 app.use('/yelp', yelp);
+
+app.use('/favorites', favorites);
+
 // passport config
 var Accounts = require('./models/account');
 passport.use(new LocalStrategy(Accounts.authenticate()));

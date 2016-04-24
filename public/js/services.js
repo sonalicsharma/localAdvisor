@@ -7,14 +7,20 @@ angular.module('localAdvisorApp').factory('AuthService',
 
     // return available functions for use in the controllers
     return ({
+	  getUser: getUser,
       isLoggedIn: isLoggedIn,
       getUserStatus: getUserStatus,
       login: login,
       logout: logout,
       register: register
     });
+
 	function isLoggedIn() {
 	  return user ? true : false;
+	}
+
+	function getUser() {
+	  return user;
 	}
 
 	// TODO: needs work
@@ -103,3 +109,5 @@ angular.module('localAdvisorApp').factory('AuthService',
       return deferred.promise;
     }
 }]);
+
+//angular.module('localAdvisorApp').factory(

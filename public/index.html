@@ -80,10 +80,22 @@
           <ul class="nav navbar-nav navbar-right">
 			<li>
 				<div class="input-group page-scroll">
-				<input type="search" class="form-control input-sm"  placeholder="Please type a location.." ng-model="location">
-				<span class="input-group-btn">
+				  <input type="search" class="form-control input-sm"  placeholder="Please type a location.." ng-model="location">
+				  <div class="input-group-btn">
+					<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+					<ul class="dropdown-menu dropdown-menu-right">
+					  <li><a ng-href="" ng-hide="isLoggedIn()">Sign In to add this city to Favorites</a></li>
+					  <li><a ng-href="" ng-if="isLoggedIn() && isFavorite(location)" ng-click="removeFavorite(location)">Remove from Favorites</a></li>
+					  <li><a ng-href="" ng-if="isLoggedIn() && !isFavorite(location)" ng-click="addFavorite(location)">Add to Favorites</a></li>
+					  <li role="separator" class="divider" ng-show="isLoggedIn()"></li>
+					  <li ng-repeat="entry in favorites">
+						<a ng-href="" ng-click="setLocation(entry.location)">{{entry.location}}</a>
+					  </li>
+					</ul>
+				  </div><!-- /btn-group -->
+				  <span class="input-group-btn">
                     <button class="btn btn-primary btn-sm" ng-click="setLocation(location)" > Search  </button> 
-               	</span>
+               	  </span>
             	</div>
 			</li>
             <li><a href="#tf-home" class="page-scroll">Home</a></li>

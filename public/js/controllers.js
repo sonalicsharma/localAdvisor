@@ -1,4 +1,5 @@
 angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$http', 'uiGmapGoogleMapApi', '$uibModal', 'AuthService', function ($scope, $http, uiGmapGoogleMapApi, $uibModal, AuthService) { 
+  $scope.username = "";
   $scope.location = 'Champaign, IL';
   $scope.lat="40.1164204";
   $scope.lon="-88.2433829";
@@ -20,7 +21,37 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
   $http.get('eventful/' + $scope.location).success(function(data) {
     $scope.eventlistings = data;
   });
+
+  $scope.favorites = [];
+  $scope.isFavorite = function(location) {
+	return $.grep($scope.favorites, function(value) { return value.location === location;}).length > 0;
+  }
+  $scope.addFavorite = function(location) {
+	$http.post('favorites', {user: AuthService.getUser(), location: location})
+	.success(function(data) {
+	  $scope.favorites.push(data);
+	});
+  };
+  $scope.removeFavorite = function(location) {
+	var entry = $.grep($scope.favorites, function(value) { return value.location === location;})[0];
+	console.log(entry);
+	$http.delete('favorites/' + entry._id)
+	.success(function(data) {
+	  $scope.favorites = $.grep($scope.favorites, function(value) { return value.location !== location;});
+	});
+  };
   
+  $scope.$watch("username", function(newValue, oldValue) {
+    $scope.favorites = [];
+	if (!newValue) {
+	  return;
+	}
+	$http.get('favorites', {user: newValue})
+	.success(function(data) {
+		$scope.favorites = data;
+	});
+  });
+
   $scope.setLocation = function(location) {
     $scope.yelplistings = [];
     $scope.coffeelistings = [];
