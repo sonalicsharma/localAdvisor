@@ -1,13 +1,4 @@
-var localAdvisorApp = angular.module('localAdvisorApp', ['uiGmapgoogle-maps', 'ui.bootstrap']).config(["$sceProvider", "uiGmapGoogleMapApiProvider", function($sceProvider, uiGmapGoogleMapApiProvider) {
-  $sceProvider.enabled(false);
-  uiGmapGoogleMapApiProvider.configure({
-        key: 'AIzaSyCmY50zYduZyT4egMMdmHH9GGkTiIvhF_8',
-        v: '3.20', //defaults to latest 3.X anyhow
-        libraries: 'weather,geometry,visualization'
-    });
-}]);
-
-localAdvisorApp.controller('localAdvisorCtrl', function ($scope, $http, uiGmapGoogleMapApi, $uibModal) {
+angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$http', 'uiGmapGoogleMapApi', '$uibModal', function ($scope, $http, uiGmapGoogleMapApi, $uibModal) { 
   $scope.location = 'Champaign, IL';
   $scope.lat="40.1164204";
   $scope.lon="-88.2433829";
@@ -113,9 +104,9 @@ localAdvisorApp.controller('localAdvisorCtrl', function ($scope, $http, uiGmapGo
 		$scope.greetings = '';
       });
   }; 
-});
+}]);
 
-localAdvisorApp.controller('userController', function ($scope, $http, $uibModalInstance, items) {
+angular.module('localAdvisorApp').controller('userController', ['$scope', '$http', '$uibModalInstance', 'items', function ($scope, $http, $uibModalInstance, items) {
   $scope.loginUser = function() {
       $http.post('login',$scope.login)
       .success(function(response){
@@ -133,5 +124,5 @@ localAdvisorApp.controller('userController', function ($scope, $http, $uibModalI
   $scope.cancel = function () {
     $uibModalInstance.dismiss('cancel');
   }; 
-});
+}]);
 
