@@ -1,4 +1,4 @@
-angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$http', 'uiGmapGoogleMapApi', '$uibModal', 'AuthService', 'weatherService', function ($scope, $http, uiGmapGoogleMapApi, $uibModal, AuthService, weatherService) { 
+angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$http', 'uiGmapGoogleMapApi', '$uibModal', 'AuthService', 'weatherService', function ($scope, $http, uiGmapGoogleMapApi, $uibModal, AuthService, weatherService) {
   $scope.username = "";
 
   $scope.location = 'Champaign, IL';
@@ -9,7 +9,7 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
     $scope.map     = { center: { latitude: $scope.lat, longitude: $scope.lon }, zoom: 12 };
     $scope.options = { scrollwheel: false };
   });
-    
+
   $http.get('yelp/restaurants/'+ $scope.location).success(function(data) {
     $scope.yelplistings = data;
   });
@@ -24,24 +24,35 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
   });
 
   $scope.favorites = [];
-  $scope.isFavorite = function(location) {
-	return $.grep($scope.favorites, function(value) { return value.location === location;}).length > 0;
+  $scope.favorite = {};
+  $scope.isFavorite = function(listing, category) {
+	  return $.grep($scope.favorites, function(entry) { return entry.name === listing && entry.category === category;}).length > 0;
   }
-  $scope.addFavorite = function(location) {
-	$http.post('favorites', {user: AuthService.getUser(), location: location})
-	.success(function(data) {
-	  $scope.favorites.push(data);
-	});
+
+  $scope.addFavorite = function(listing, category) {
+    var favorite = {};
+    if (category) {
+      favorite.category = category;
+      favorite.name = (listing.name) ? listing.name : listing;
+      favorite.link = listing.url;
+    } else {
+      favorite = $scope.favorite;
+    }
+    console.log(favorite);
+    favorite.user =  AuthService.getUser();
+    $http.post('favorites', favorite)
+    .success(function(data) {
+      $scope.favorites.push(data);
+    });
   };
-  $scope.removeFavorite = function(location) {
-	var entry = $.grep($scope.favorites, function(value) { return value.location === location;})[0];
-	console.log(entry);
-	$http.delete('favorites/' + entry._id)
-	.success(function(data) {
-	  $scope.favorites = $.grep($scope.favorites, function(value) { return value.location !== location;});
-	});
+  $scope.removeFavorite = function(listing, category) {
+  	var id = (category) ? $.grep($scope.favorites, function(entry) { return entry.name === listing && entry.category === category;})[0]._id : listing;
+  	$http.delete('favorites/' + id)
+  	.success(function(data) {
+  	  $scope.favorites = $.grep($scope.favorites, function(entry) { return entry._id !== id;});
+  	});
   };
-  
+
   $scope.$watch("username", function(newValue, oldValue) {
     $scope.favorites = [];
 	if (!newValue) {
@@ -56,13 +67,13 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
   $http.get('yelp/Active Life/'+ $scope.location).success(function(data) {
     $scope.ActiveLifelistings = data;
   });
-  
+
   $http.get('expedia/' + $scope.lat + ',' + $scope.lon).success(function(data) {
     console.log(data);
     $scope.hotels = data;
   })
   $scope.weather = weatherService.getWeather($scope.lat, $scope.lon, $scope.location);
-  
+
   $scope.setLocation = function(location) {
     $scope.yelplistings = [];
     $scope.coffeelistings = [];
@@ -75,11 +86,11 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
 		$scope.weatherUrl = 'http://forecast.io/embed/#lat=' + $scope.lat + '&lon=' + $scope.lon + '&name=' + $scope.location;
 		$( '#forecast_embed' ).attr( 'src', function ( i, val ) { return val; });
 		//alert($scope.weatherUrl);
-      
+
        $scope.weather = weatherService.getWeather($scope.lat, $scope.lon, $scope.location);
-      
+
         $scope.map = { center: { latitude: $scope.lat, longitude: $scope.lon }, zoom: 12 };
-      
+
 		$http.get('yelp/restaurants/'+ $scope.location).success(function(data) {
 		  $scope.yelplistings = data;
 		});
@@ -126,14 +137,14 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
   };
   $scope.isLoggedIn = function() {
 	return AuthService.isLoggedIn();
-  }; 
+  };
   $scope.logout=function() {
 	AuthService.logout()
 	  .then(function() {
 		$scope.username = "";
 		$scope.greetings = '';
       });
-  }; 
+  };
 }]);
 
 angular.module('localAdvisorApp').controller('userController', ['$scope', '$http', '$uibModalInstance', 'items', 'AuthService', function ($scope, $http, $uibModalInstance, items, AuthService) {
@@ -153,13 +164,13 @@ angular.module('localAdvisorApp').controller('userController', ['$scope', '$http
 
   $scope.cancel = function () {
     $uibModalInstance.dismiss('cancel');
-  }; 
+  };
 }]);
 localAdvisorApp.factory('weatherService', function($http) {
-    return { 
+    return {
       getWeather: function(lat, lon, location) {
         var weather = { temp: {}, clouds: null };
-        
+
         $http.jsonp('http://api.openweathermap.org/data/2.5/weather?lat='+ lat+'&lon='+lon+'&units=imperial&callback=JSON_CALLBACK&appid=fd696179217da623fb83ae461c01af05').success(function(data) {
             if (data) {
                 if (data.main) {
@@ -174,7 +185,7 @@ localAdvisorApp.factory('weatherService', function($http) {
         console.log(weather);
         return weather;
       }
-    }; 
+    };
 });
 
 localAdvisorApp.filter('temp', function($filter) {

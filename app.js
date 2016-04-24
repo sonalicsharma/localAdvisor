@@ -19,18 +19,19 @@ app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use("/bower_components", express.static(__dirname+ "/bower_components"));
+app.use("/bower_components", express.static(__dirname + "/bower_components"));
 
 app.use('/eventful', eventful);
 app.use('/yelp', yelp);
 app.use('/expedia', expedia);
-
 app.use('/favorites', favorites);
 
 // passport config
@@ -45,19 +46,24 @@ mongoose.connect('mongodb://localhost/LocalAdvisor');
 
 app.post('/register', function(req, res) {
   console.log(req.body);
-  Accounts.register(new Accounts({ username : req.body.username }), req.body.password, function(err, account) {
-        if (err) {
-            res.json(err);
-        }
-
-        passport.authenticate('local')(req, res, function () {
-			return res.status(200).json({status: 'Registration successful!'});
-        });
+  Accounts.register(new Accounts({
+    username: req.body.username
+  }), req.body.password, function(err, account) {
+    if (err) {
+      return res.status(400).json(err);
+    }
+    passport.authenticate('local')(req, res, function() {
+      return res.status(200).json({
+        status: 'Registration successful!'
+      });
     });
+  });
 });
 
 app.post('/login', passport.authenticate('local'), function(req, res) {
-  res.status(200).json({status: 'Login successful!'});
+  res.status(200).json({
+    status: 'Login successful!'
+  });
 });
 
 app.get('/logout', function(req, res) {

@@ -1,0 +1,46 @@
+<div class="container" ng-show="isLoggedIn()">
+  <h3>Favorites</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Name</th>
+        <th>Link</th>
+        <th>Action</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <input class="form-control" ng-model="favorite.category">
+        </td>
+        <td>
+          <input class="form-control" ng-model="favorite.name">
+        </td>
+        <td>
+          <input class="form-control" ng-model="favorite.link">
+        </td>
+        <td>
+          <button class="btn btn-primary" ng-click="addFavorite()">Add New</button>
+        </td>
+        <td>
+          <button class="btn btn-info" ng-click="updateFavoriteListing()">Update</button>&nbsp;&nbsp;
+          <button class="btn btn-info" ng-click="deselect()">Clear</button>
+        </td>
+      </tr>
+
+      <tr ng-repeat="favorite in favorites">
+        <td>{{favorite.category}}</td>
+        <td>{{favorite.name}}</td>
+        <td>{{favorite.link}}</td>
+        <td>
+          <button class="btn btn-danger" ng-click="removeFavorite(favorite._id)">Remove</button>
+        </td>
+        <td>
+          <button class="btn btn-warning" ng-click="edit(favorite._id)">Edit</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

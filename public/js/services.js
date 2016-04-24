@@ -1,13 +1,12 @@
-angular.module('localAdvisorApp').factory('AuthService',
-  ['$q', '$timeout', '$http',
-  function ($q, $timeout, $http) {
+angular.module('localAdvisorApp').factory('AuthService', ['$q', '$timeout', '$http',
+  function($q, $timeout, $http) {
 
     // create user variable
     var user = null;
 
     // return available functions for use in the controllers
     return ({
-	  getUser: getUser,
+      getUser: getUser,
       isLoggedIn: isLoggedIn,
       getUserStatus: getUserStatus,
       login: login,
@@ -15,29 +14,29 @@ angular.module('localAdvisorApp').factory('AuthService',
       register: register
     });
 
-	function isLoggedIn() {
-	  return user ? true : false;
-	}
+    function isLoggedIn() {
+      return user ? true : false;
+    }
 
-	function getUser() {
-	  return user;
-	}
+    function getUser() {
+      return user;
+    }
 
-	// TODO: needs work
+    // TODO: needs work
     function getUserStatus() {
       return $http.get('/status')
-      // handle success
-      .success(function (data) {
-        if(data.status){
-          user = user;
-        } else {
+        // handle success
+        .success(function(data) {
+          if (data.status) {
+            user = user;
+          } else {
+            user = null;
+          }
+        })
+        // handle error
+        .error(function(data) {
           user = null;
-        }
-      })
-      // handle error
-      .error(function (data) {
-        user = null;
-      });
+        });
     }
 
     function login(userData) {
@@ -46,8 +45,8 @@ angular.module('localAdvisorApp').factory('AuthService',
       // send a post request to the server
       $http.post('/login', userData)
         // handle success
-        .success(function (data, status) {
-          if(status === 200 && data.status){
+        .success(function(data, status) {
+          if (status === 200 && data.status) {
             user = userData.username;
             deferred.resolve();
           } else {
@@ -56,7 +55,8 @@ angular.module('localAdvisorApp').factory('AuthService',
           }
         })
         // handle error
-        .error(function (data) {
+        .error(function(data) {
+          alert("User name or password not valid.");
           user = null;
           deferred.reject();
         });
@@ -71,12 +71,12 @@ angular.module('localAdvisorApp').factory('AuthService',
       // send a get request to the server
       $http.get('/logout')
         // handle success
-        .success(function (data) {
+        .success(function(data) {
           user = null;
           deferred.resolve();
         })
         // handle error
-        .error(function (data) {
+        .error(function(data) {
           user = null;
           deferred.reject();
         });
@@ -90,17 +90,19 @@ angular.module('localAdvisorApp').factory('AuthService',
       // send a post request to the server
       $http.post('/register', userData)
         // handle success
-        .success(function (data, status) {
-          if(status === 200 && data.status){
-			user = userData.username;
+        .success(function(data, status) {
+          if (status === 200 && data.status) {
+            user = userData.username;
             deferred.resolve();
           } else {
-		    user = null;
+            alert(data.message);
+            user = null;
             deferred.reject();
           }
         })
         // handle error
-        .error(function (data) {
+        .error(function(data) {
+          alert(data.message);
           user = null;
           deferred.reject();
         });
@@ -108,6 +110,7 @@ angular.module('localAdvisorApp').factory('AuthService',
       // return promise object
       return deferred.promise;
     }
-}]);
+  }
+]);
 
 //angular.module('localAdvisorApp').factory(

@@ -85,16 +85,16 @@
 					<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
 					<ul class="dropdown-menu dropdown-menu-right">
 					  <li><a ng-href="" ng-hide="isLoggedIn()">Sign In to add this city to Favorites</a></li>
-					  <li><a ng-href="" ng-if="isLoggedIn() && isFavorite(location)" ng-click="removeFavorite(location)">Remove from Favorites</a></li>
-					  <li><a ng-href="" ng-if="isLoggedIn() && !isFavorite(location)" ng-click="addFavorite(location)">Add to Favorites</a></li>
+					  <li><a ng-href="" ng-if="isLoggedIn() && isFavorite(location, 'Location')" ng-click="removeFavorite(location, 'Location')">Remove from Favorites</a></li>
+					  <li><a ng-href="" ng-if="isLoggedIn() && !isFavorite(location, 'Location')" ng-click="addFavorite(location, 'Location')">Add to Favorites</a></li>
 					  <li role="separator" class="divider" ng-show="isLoggedIn()"></li>
-					  <li ng-repeat="entry in favorites">
-						<a ng-href="" ng-click="setLocation(entry.location)">{{entry.location}}</a>
+					  <li ng-repeat="entry in favorites | filter:{ category: 'Location' }">
+						<a ng-href="" ng-click="setLocation(entry.name)">{{entry.name}}</a>
 					  </li>
 					</ul>
 				  </div><!-- /btn-group -->
 				  <span class="input-group-btn">
-                    <button class="btn btn-primary btn-sm" ng-click="setLocation(location)" > Search  </button> 
+                    <button class="btn btn-primary btn-sm" ng-click="setLocation(location)" > Search  </button>
                	  </span>
             	</div>
 			</li>
@@ -107,7 +107,7 @@
             <!--li><a ng-href="" ng-click="checkStatus()" class="page-scroll">Check Status</a></li-->
             <li><a ng-href="" ng-show="isLoggedIn()" ng-click="logout()" class="page-scroll">Sign Out</a></li>
           </ul>
-          
+
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
@@ -156,7 +156,7 @@
                 <div class="col-md-3 col-sm-6 service">
                     <i class="fa fa-coffee"></i>
                     <h4><strong><a href="#tf-search">Coffee and More</a></strong></h4>
-                       
+
                     <p>Find good coffee shops</p>
                 </div>
             </div>
@@ -176,7 +176,7 @@
                 Min: {{ weather.temp.min | temp }}, Max: {{ weather.temp.max | temp }}
               </div>
               <div class="col-md-6">
-                <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>  
+                <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
               </div>
            </div>
 			<div class="row">
@@ -184,7 +184,7 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">Top Restaurants (Yelp says so!!!)
-								<span class="pull-right glyphicon glyphicon-cutlery clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>                    
+								<span class="pull-right glyphicon glyphicon-cutlery clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>
 							</h3>
 						</div><!-- end panel-heading -->
 						  <ul class="list-unstyled listings list-group">
@@ -192,7 +192,7 @@
 							  <img class="thumb" ng-src="{{listing.image_url}}" alt="{{listing.name}}">
 							  <span>{{listing.name}} <img ng-src="{{listing.rating_img_url}}" alt="{{listing.rating}}"><a class="pull-right"  target="_blank" href="{{listing.url}}">(Go to Yelp)</a></span>
 							  <p>{{listing.location.display_address.join(', ')}}</p>
-							  <p>{{listing.display_phone}}</p>
+							  <p>{{listing.display_phone}} <button class="btn btn-info pull-right" ng-click="addFavorite(listing, 'Restaurant')">(+)</button></p>
 							</li>
 						  </ul>
 						<!--a href=# target="_blank" class="btn btn-warning btn-block">See More..</a>-->
@@ -222,7 +222,7 @@
 					<div class="panel panel-info">
 						<div class="panel-heading">
 							<h3 class="panel-title">A Lot Can Happen Over A Coffee...
-								<span class="pull-right glyphicon glyphicon-leaf clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>                    
+								<span class="pull-right glyphicon glyphicon-leaf clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>
 							</h3>
 						</div><!-- end panel-heading -->
 						  <ul class="list-unstyled listings list-group">
@@ -241,7 +241,7 @@
 					<div class="panel panel-info">
 						<div class="panel-heading">
 							<h3 class="panel-title">Let's Make A Night To Remember...
-								<span class="pull-right glyphicon glyphicon-glass clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>                    
+								<span class="pull-right glyphicon glyphicon-glass clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>
 							</h3>
 						</div><!-- end panel-heading -->
 						  <ul class="list-unstyled listings list-group">
@@ -261,7 +261,7 @@
 					<div class="panel panel-info">
 						<div class="panel-heading">
 							<h3 class="panel-title">Active Life...
-								<span class="pull-right glyphicon glyphicon-leaf clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>                    
+								<span class="pull-right glyphicon glyphicon-leaf clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>
 							</h3>
 						</div><!-- end panel-heading -->
 						  <ul class="list-unstyled listings list-group">
@@ -269,7 +269,10 @@
 							  <img class="thumb" ng-src="{{listing.image_url}}" alt="{{listing.name}}">
 							  <span>{{listing.name}} <img ng-src="{{listing.rating_img_url}}" alt="{{listing.rating}}"><a class="pull-right"  target="_blank" href="{{listing.url}}">(Go to Yelp)</a></span>
 							  <p>{{listing.location.display_address.join(', ')}}</p>
-							  <p>{{listing.display_phone}}</p>
+							  <p>{{listing.display_phone}}
+                  <button class="btn btn-info pull-right" ng-if="isLoggedIn() && isFavorite(listing.name, 'Active Life')" ng-click="removeFavorite(listing.name, 'Active Life')"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></button>
+                  <button class="btn btn-info pull-right" ng-if="!isLoggedIn() || !isFavorite(listing.name, 'Active Life')" ng-click="addFavorite(listing, 'Active Life')"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></button>
+                </p>
 							</li>
 						  </ul>
 						<!--a href=# target="_blank" class="btn btn-warning btn-block">See More..</a>-->
@@ -280,21 +283,21 @@
 					<div class="panel panel-info">
 						<div class="panel-heading">
 							<h3 class="panel-title">Best Hotels In Town!
-								<span class="pull-right glyphicon glyphicon-glass clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>                    
+								<span class="pull-right glyphicon glyphicon-glass clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>
 							</h3>
 						</div><!-- end panel-heading -->
 						  <ul class="list-unstyled listings list-group">
 							<li ng-repeat="hotel in hotels" class="thumbnail listing list-group-item">
 							  <img class="thumb" ng-src="{{hotel.ThumbnailUrl}}" alt="{{hotel.Name}}">
-                              <span>{{hotel.Name}} 
+                              <span>{{hotel.Name}}
                                 <span class="label label-warning">{{hotel.StarRating}} <span class="glyphicon glyphicon-star" aria-hidden="true"></span></span>
                                 <span class="badge">Rated {{hotel.GuestRating}}</span>
                               </span>
                               <a class="pull-right"  target="_blank" href="{{hotel.DetailsUrl}}">(Go to Expedia)</a>
-                              
+
 							  <p>{{hotel.Location.StreetAddress}}, {{hotel.Location.City}}</p>
                               <p><b>Amenities: </b>{{hotel.AmenityList.Amenity[0]}}, {{hotel.AmenityList.Amenity[1]}}</p>
-                    
+
 							</li>
 						  </ul>
 						<!--a href=# target="_blank" class="btn btn-warning btn-block">See More..</a>-->
@@ -303,7 +306,7 @@
 			</div>
         </div>
     </div>
-
+    <div ng-include="'partial/favorites.html'"></div>
     <!-- About Us Page
     ==========================================-->
     <div id="tf-about">
@@ -341,9 +344,9 @@
         </div>
     </div>
 
-    
 
-   
+
+
 <!-- Contact Section
     ==========================================-->
     <div id="tf-contact" class="text-center">
@@ -412,7 +415,7 @@
     <!-- Javascripts
     ================================================== -->
     <script type="text/javascript" src="../js/main.js"></script>
-    
+
     <script src="js/app.js"></script>
     <script src="js/services.js"></script>
     <script src="js/controllers.js"></script>
