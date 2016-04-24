@@ -129,8 +129,10 @@
     <div id="tf-search" class="text-center">
         <div class="container">
             <div class="row">
-              <div class="col-md-6">
-            	<iframe id="forecast_embed" type="text/html" frameborder="0" height="245" width="100%" ng-src="{{weatherUrl}}"> </iframe>
+              <div class="col-md-6 feature">
+                <weather-icon cloudiness="{{ weather.clouds }}"></weather-icon>
+                <h3>Current: {{ weather.temp.current | temp:2 }}</h3>
+                min: {{ weather.temp.min | temp }}, max: {{ weather.temp.max | temp }}
               </div>
               <div class="col-md-6">
                 <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>  

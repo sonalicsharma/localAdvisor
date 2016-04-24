@@ -1,5 +1,6 @@
-angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$http', 'uiGmapGoogleMapApi', '$uibModal', 'AuthService', function ($scope, $http, uiGmapGoogleMapApi, $uibModal, AuthService) { 
+angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$http', 'uiGmapGoogleMapApi', '$uibModal', 'AuthService', 'weatherService', function ($scope, $http, uiGmapGoogleMapApi, $uibModal, AuthService, weatherService) { 
   $scope.username = "";
+
   $scope.location = 'Champaign, IL';
   $scope.lat="40.1164204";
   $scope.lon="-88.2433829";
@@ -8,7 +9,7 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
     $scope.map     = { center: { latitude: $scope.lat, longitude: $scope.lon }, zoom: 12 };
     $scope.options = { scrollwheel: false };
   });
-  
+    
   $http.get('yelp/restaurants/'+ $scope.location).success(function(data) {
     $scope.yelplistings = data;
   });
@@ -52,6 +53,10 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
 	});
   });
 
+  
+  $scope.weather = weatherService.getWeather($scope.lat, $scope.lon);
+  
+  
   $scope.setLocation = function(location) {
     $scope.yelplistings = [];
     $scope.coffeelistings = [];
@@ -64,6 +69,8 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
 		$scope.weatherUrl = 'http://forecast.io/embed/#lat=' + $scope.lat + '&lon=' + $scope.lon + '&name=' + $scope.location;
 		$( '#forecast_embed' ).attr( 'src', function ( i, val ) { return val; });
 		//alert($scope.weatherUrl);
+      
+       $scope.weather = weatherService.getWeather($scope.lat, $scope.lon);
       
         $scope.map = { center: { latitude: $scope.lat, longitude: $scope.lon }, zoom: 12 };
       
@@ -142,4 +149,55 @@ angular.module('localAdvisorApp').controller('userController', ['$scope', '$http
     $uibModalInstance.dismiss('cancel');
   }; 
 }]);
+localAdvisorApp.factory('weatherService', function($http) {
+    return { 
+      getWeather: function(lat, lon) {
+        var weather = { temp: {}, clouds: null };
+        
+        $http.jsonp('http://api.openweathermap.org/data/2.5/weather?lat='+ lat+'&lon='+lon+'&units=metric&callback=JSON_CALLBACK&appid=fd696179217da623fb83ae461c01af05').success(function(data) {
+            if (data) {
+                if (data.main) {
+                    weather.temp.current = data.main.temp;
+                    weather.temp.min = data.main.temp_min;
+                    weather.temp.max = data.main.temp_max;
+                }
+                weather.clouds = data.clouds ? data.clouds.all : undefined;
+            }
+        });
+        console.log(weather);
+        return weather;
+      }
+    }; 
+});
 
+localAdvisorApp.filter('temp', function($filter) {
+    return function(input, precision) {
+        if (!precision) {
+            precision = 1;
+        }
+        var numberFilter = $filter('number');
+        return numberFilter(input, precision) + '\u00B0C';
+    };
+});
+
+localAdvisorApp.directive('weatherIcon', function() {
+    return {
+        restrict: 'E', replace: true,
+        scope: {
+            cloudiness: '@'
+        },
+        controller: function($scope) {
+            $scope.imgurl = function() {
+                var baseUrl = 'https://ssl.gstatic.com/onebox/weather/128/';
+                if ($scope.cloudiness < 20) {
+                    return baseUrl + 'sunny.png';
+                } else if ($scope.cloudiness < 90) {
+                   return baseUrl + 'partly_cloudy.png';
+                } else {
+                    return baseUrl + 'cloudy.png';
+                }
+            };
+        },
+        template: '<div style="float:left"><img ng-src="{{ imgurl() }}"></div>'
+    };
+});
