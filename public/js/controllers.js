@@ -32,7 +32,6 @@ localAdvisorApp.controller('localAdvisorCtrl', function ($scope, $http, uiGmapGo
   
   $scope.weather = weatherService.getWeather($scope.lat, $scope.lon);
   
-  
   $scope.setLocation = function(location) {
     $scope.yelplistings = [];
     $scope.coffeelistings = [];
