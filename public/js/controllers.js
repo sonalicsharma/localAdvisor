@@ -85,7 +85,7 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
   $http.get('expedia/' + $scope.lat + ',' + $scope.lon).success(function(data) {
     console.log(data);
     $scope.hotels = data;
-  })
+  });
   $scope.weather = weatherService.getWeather($scope.lat, $scope.lon, $scope.location);
 
   $scope.setLocation = function(location) {
@@ -93,6 +93,8 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
     $scope.coffeelistings = [];
     $scope.nightlifelistings = [];
     $scope.eventlistings = [];
+    $scope.ActiveLifelistings=[];
+    $scope.hotels=[];
 	$http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + location + '&key=AIzaSyDK2Bk1bhmFMW4wKYOX9Wu-ko6ouCq9uUw').success(function(data) {
 		$scope.location = data.results[0].formatted_address;
 		$scope.lat = data.results[0].geometry.location.lat;
@@ -117,6 +119,13 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
 		$http.get('eventful/' + $scope.location).success(function(data) {
 		  $scope.eventlistings = data;
 		});
+       $http.get('yelp/Active Life/'+ $scope.location).success(function(data) {
+		  $scope.ActiveLifelistings = data;
+		});
+        $http.get('expedia/' + $scope.lat + ',' + $scope.lon).success(function(data) {
+        console.log(data);
+        $scope.hotels = data;
+      });
 	});
 	$('html,body').animate({
 	  scrollTop: $('#tf-search').offset().top - 50
