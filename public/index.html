@@ -34,6 +34,7 @@
     <link rel="stylesheet" type="text/css"  href="../css/style.css">
     <link rel="stylesheet" type="text/css"  href="../css/custom.css">
     <link rel="stylesheet" type="text/css" href="../css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.icon-large.min.css">
 
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400' rel='stylesheet' type='text/css'>
@@ -99,9 +100,9 @@
             	</div>
 			</li>
             <li><a href="#tf-home" class="page-scroll">Home</a></li>
-            <li><a href="#tf-about" class="page-scroll">About</a></li>
             <li><a href="#tf-services" class="page-scroll">Services</a></li>
             <li><a ng-href="#tf-favorites" ng-show="isLoggedIn()" class="page-scroll">Favorites</a></li>
+            <li><a href="#tf-about" class="page-scroll">About</a></li>         
             <li><a href="#tf-contact" class="page-scroll">Contact</a></li>
             <li><a ng-href="" ng-hide="isLoggedIn()" ng-click="showRegistration()" class="page-scroll">Sign Up</a></li>
             <li><a ng-href="" ng-hide="isLoggedIn()" ng-click="showLogin()" class="page-scroll">Sign In</a></li>
@@ -120,7 +121,7 @@
             <div class="content">
                 <h1>{{greetings}} Welcome to <strong><span class="color">Local Advisor</span></strong></h1>
                 <p class="lead">“A journey of a thousand miles starts with a single step.” <strong>– Lao Tzu</strong></p>
-                <a href="#tf-about" class="fa fa-angle-down page-scroll"></a>
+                <a href="#tf-services" class="fa fa-angle-down page-scroll"></a>
             </div>
         </div>
     </div>
@@ -129,36 +130,47 @@
     <div id="tf-services" class="text-center">
         <div class="container">
             <div class="section-title circle">
-                <h2>Take a look at <strong>our services</strong></h2>
+                <h2>Get all information for your <strong>city</strong></h2>
               </br>
                 <div class="clearfix"></div>
-                <small><em>Explore your options...</em></small>
+                <em>Explore your options...</em>
             </div>
             <div class="space"></div>
             <div class="row">
-                <div class="col-md-3 col-sm-6 service">
-                    <i class="fa fa-cutlery"></i>
-                    <h4><strong>Food Near You</strong></h4>
+                <div class="col-md-2 col-sm-6 service">
+                    <a href="#first" class="page-scroll"><i class="fa fa-cutlery"></i></a>
+                    <h4><strong><a href="#first" class="page-scroll">Food near you</a></strong></h4>
                     <p>Find good eating places near you.</p>
                 </div>
 
-                <div class="col-md-3 col-sm-6 service">
-                    <i class="fa fa-music"></i>
-                    <h4><strong>Local Events</strong></h4>
+                <div class="col-md-2 col-sm-6 service">
+                  <a href="#first" class="page-scroll"><i class="fa fa-music"></i></a>
+                   <h4><strong><a href="#first" class="page-scroll">Local Events</a></strong></h4>
                     <p>Find all upcoming local events near you</p>
                 </div>
 
-                <div class="col-md-3 col-sm-6 service">
-                    <i class="fa fa-glass"></i>
-                    <h4><strong>Night Life</strong></h4>
+                <div class="col-md-2 col-sm-6 service">
+                  <a href="#second" class="page-scroll"><i class="fa fa-glass"></i></a>
+                    <h4><strong><a href="#second" class="page-scroll">Night Life</a></strong></h4>
                     <p>Get some night life</p>
                 </div>
 
-                <div class="col-md-3 col-sm-6 service">
-                    <i class="fa fa-coffee"></i>
-                    <h4><strong><a href="#tf-search">Coffee and More</a></strong></h4>
-
+                <div class="col-md-2 col-sm-6 service">
+                  <a href="#second" class="page-scroll"><i class="fa fa-coffee"></i></a>
+                    <h4><strong><a href="#second" class="page-scroll">Coffee and More</a></strong></h4>
                     <p>Find good coffee shops</p>
+                </div>
+               <div class="col-md-2 col-sm-6 service">
+                 <a href="#third" class="page-scroll"><i class="fa fa-thumbs-up"></i></a>
+                    <h4><strong><a href="#third" class="page-scroll">Active Life</a></strong></h4>
+                       
+                    <p>Do some activities</p>
+                </div>
+              <div class="col-md-2 col-sm-6 service">
+                <a href="#third" class="page-scroll"><i class="fa fa-bed"></i></a>
+                    <h4><strong><a href="#third" class="page-scroll">Hotels</a></strong></h4>
+                       
+                    <p>Find hotels</p>
                 </div>
             </div>
         </div>
@@ -170,17 +182,31 @@
     <div id="tf-search" class="text-center">
         <div class="container">
             <div class="row">
-              <div class="col-md-6 square">
-                <h3>Weather in {{weather.temp.location}}</h3>
+              <div class="col-md-6">
+                <div class="panel panel-warning">
+                  <div class="panel-heading">
+                      <h3 class="panel-title">Weather in {{weather.temp.location}}
+                          <span class="pull-right glyphicon glyphicon-cloud clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>                    
+                      </h3>
+                  </div><!-- end panel-heading -->
+               
                 <weather-icon cloudiness="{{ weather.clouds }}"></weather-icon>
                 <h3>Current: {{ weather.temp.current | temp:1 }}</h3>
                 Min: {{ weather.temp.min | temp }}, Max: {{ weather.temp.max | temp }}
+                  </div><!-- end panel -->
               </div>
               <div class="col-md-6">
-                <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
+                <div class="panel panel-warning">
+                  <div class="panel-heading">
+                      <h3 class="panel-title">{{weather.temp.location}}
+                          <span class="pull-right glyphicon glyphicon-globe clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>                    
+                      </h3>
+                  </div><!-- end panel-heading -->
+                <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>  
+                 </div>
               </div>
            </div>
-			<div class="row">
+			<div id="first" class="row">
 				<div class="col-md-6 feature">
 					<div class="panel panel-success">
 						<div class="panel-heading">
@@ -191,7 +217,7 @@
 						  <ul class="list-unstyled listings list-group">
 							<li ng-repeat="listing in yelplistings" class="thumbnail listing list-group-item">
 							  <img class="thumb" ng-src="{{listing.image_url}}" alt="{{listing.name}}">
-							  <span>{{listing.name}} <img ng-src="{{listing.rating_img_url}}" alt="{{listing.rating}}"><a class="pull-right"  target="_blank" href="{{listing.url}}">(Go to Yelp)</a></span>
+							  <span>{{listing.name}} <img ng-src="{{listing.rating_img_url}}" alt="{{listing.rating}}"><a class="pull-right"  target="_blank" href="{{listing.url}}"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a></span>
 							  <p>{{listing.location.display_address.join(', ')}}</p>
 
 							</li>
@@ -201,15 +227,15 @@
 				</div><!-- end feature -->
 
 				<div class="col-md-6 feature">
-					<div class="panel panel-info">
+					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h3 class="panel-title">Upcoming Music Events (Let's Rock!)
 								<span class="pull-right glyphicon glyphicon-music clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span></h3>
 						</div><!-- end panel-heading -->
 						  <ul class="list-unstyled listings list-group">
 							<li ng-repeat="listing in eventlistings" class="thumbnail listing list-group-item">
-							  <img class="thumb" ng-src="{{listing.image.url}}" alt="Oops! No image found! :(">
-							  <span>{{listing.title}} <a class="pull-right"  target="_blank" href="{{listing.url}}">(Details from Eventful)</a></span>
+							  <img class="thumb" ng-src="{{listing.image.url}}" alt=<img src='../img/noImg.gif'/>
+							  <span>{{listing.title}} <a class="pull-right"  target="_blank" href="{{listing.url}}"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a></span>
 							  <p>{{listing.start_time}} {{listing.venue_name}}</p>
 							  <p>{{listing.venue_address}}, {{listing.city_name}}, {{listing.postal_code}}</p>
 							</li>
@@ -218,22 +244,23 @@
 					</div><!-- end panel -->
 				</div><!-- end feature -->
 		    </div>
-			<div class="row">
+			<div id="second" class="row">
 				<div class="col-md-6 feature">
 					<div class="panel panel-info">
 						<div class="panel-heading">
 							<h3 class="panel-title">A Lot Can Happen Over A Coffee...
-								<span class="pull-right glyphicon glyphicon-leaf clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>
+								<span class="pull-right glyphicon glyphicon-icon-coffe-cup clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>                    
 							</h3>
 						</div><!-- end panel-heading -->
 						  <ul class="list-unstyled listings list-group">
 							<li ng-repeat="listing in coffeelistings" class="thumbnail listing list-group-item">
 							  <img class="thumb" ng-src="{{listing.image_url}}" alt="{{listing.name}}">
-							  <span>{{listing.name}} <img ng-src="{{listing.rating_img_url}}" alt="{{listing.rating}}"><a class="pull-right"  target="_blank" href="{{listing.url}}">(Go to Yelp)</a></span>
+							  <span>{{listing.name}} <img ng-src="{{listing.rating_img_url}}" alt="{{listing.rating}}"><a class="pull-right"  target="_blank" href="{{listing.url}}"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a></span>
 							  <p>{{listing.location.display_address.join(', ')}}</p>
 							  <p>{{listing.display_phone}}</p>
 							</li>
 						  </ul>
+                       
 						<!--a href=# target="_blank" class="btn btn-warning btn-block">See More..</a>-->
 					</div><!-- end panel -->
 				</div><!-- end feature -->
@@ -248,7 +275,9 @@
 						  <ul class="list-unstyled listings list-group">
 							<li ng-repeat="listing in nightlifelistings" class="thumbnail listing list-group-item">
 							  <img class="thumb" ng-src="{{listing.image_url}}" alt="{{listing.name}}">
-							  <span>{{listing.name}} <img ng-src="{{listing.rating_img_url}}" alt="{{listing.rating}}"><a class="pull-right"  target="_blank" href="{{listing.url}}">(Go to Yelp)</a></span>
+							  <span>{{listing.name}} <img ng-src="{{listing.rating_img_url}}" alt="{{listing.rating}}"><a class="pull-right"  target="_blank" href="{{listing.url}}">
+                                <span class="glyphicon glyphicon-link" aria-hidden="true"></span>     
+                                </a></span>
 							  <p>{{listing.location.display_address.join(', ')}}</p>
 							  <p>{{listing.display_phone}}</p>
 							</li>
@@ -257,18 +286,18 @@
 					</div><!-- end panel -->
 				</div><!-- end feature -->
 			</div>
-           <div class="row">
+           <div id="third" class="row">
 				<div class="col-md-6 feature">
 					<div class="panel panel-info">
 						<div class="panel-heading">
 							<h3 class="panel-title">Active Life...
-								<span class="pull-right glyphicon glyphicon-leaf clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>
+								<span class="pull-right glyphicon glyphicon-headphones clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>                    
 							</h3>
 						</div><!-- end panel-heading -->
 						  <ul class="list-unstyled listings list-group">
 							<li ng-repeat="listing in ActiveLifelistings" class="thumbnail listing list-group-item">
 							  <img class="thumb" ng-src="{{listing.image_url}}" alt="{{listing.name}}">
-							  <span>{{listing.name}} <img ng-src="{{listing.rating_img_url}}" alt="{{listing.rating}}"><a class="pull-right"  target="_blank" href="{{listing.url}}">(Go to Yelp)</a></span>
+							  <span>{{listing.name}} <img ng-src="{{listing.rating_img_url}}" alt="{{listing.rating}}"><a class="pull-right"  target="_blank" href="{{listing.url}}"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a></span>
 							  <p>{{listing.location.display_address.join(', ')}}</p>
 							  <p>{{listing.display_phone}}
                   <button class="btn btn-link pull-right" ng-if="isLoggedIn() && isFavorite(listing.name, 'Active Life')" ng-click="removeFavorite(listing.name, 'Active Life')"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></button>
@@ -284,7 +313,7 @@
 					<div class="panel panel-info">
 						<div class="panel-heading">
 							<h3 class="panel-title">Best Hotels In Town!
-								<span class="pull-right glyphicon glyphicon-glass clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>
+								<span class="pull-right glyphicon glyphicon-home clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>                    
 							</h3>
 						</div><!-- end panel-heading -->
 						  <ul class="list-unstyled listings list-group">
@@ -294,9 +323,8 @@
                                 <span class="label label-warning">{{hotel.StarRating}} <span class="glyphicon glyphicon-star" aria-hidden="true"></span></span>
                                 <span class="badge">Rated {{hotel.GuestRating}}</span>
                               </span>
-                              <a class="pull-right"  target="_blank" href="{{hotel.DetailsUrl}}">(Go to Expedia)</a>
-
-							  <p>{{hotel.Location.StreetAddress}}, {{hotel.Location.City}}</p>
+                              <a class="pull-right"  target="_blank" href="{{hotel.DetailsUrl}}"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
+                              <p>{{hotel.Location.StreetAddress}}, {{hotel.Location.City}}</p>
                               <p><b>Amenities: </b>{{hotel.AmenityList.Amenity[0]}}, {{hotel.AmenityList.Amenity[1]}}</p>
 
 							</li>
@@ -314,7 +342,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <img src="../img/picballoon.jpg" class="img-responsive">
+                    <img src="../img/picballoon.jpg" class="img-responsive img-rounded">
                 </div>
                 <div class="col-md-6">
                     <div class="about-text">
@@ -362,7 +390,7 @@
                             <hr>
                         </div>
                         <div class="clearfix"></div>
-                        <small><em>Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</em></small>
+                        
                     </div>
 
                     <form>
@@ -397,12 +425,11 @@
     <nav id="footer">
         <div class="container">
             <div class="pull-left fnav">
-                <p>ALL RIGHTS RESERVED. COPYRIGHT © 2014. Designed by <a href="https://dribbble.com/shots/1817781--FREEBIE-Spirit8-Digital-agency-one-page-template">Robert Berki</a> and Coded by <a href="https://dribbble.com/jennpereira">Jenn Pereira</a></p>
+                <p>ALL RIGHTS RESERVED. COPYRIGHT © 2016. Designed by Sonali</p>
             </div>
             <div class="pull-right fnav">
                 <ul class="footer-social">
                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
                     <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                 </ul>
