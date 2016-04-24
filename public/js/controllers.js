@@ -74,23 +74,48 @@ localAdvisorApp.controller('localAdvisorCtrl', function ($scope, $http, uiGmapGo
       });
   }; 
 
-	$scope.showLogin = function(){
-		var modal = $uibModal.open(
-			{
-				controller:"loginController",
-				templateUrl:'partial/login.html',
-				resolve: {
-					items:function(){return {};}
-				}
-			})
-		modal.result.then(function(username){
-			$scope.username = username;
-			$scope.greetings = 'Hi ' + username + '!';
-		});
-	}
+  $scope.showLogin = function(){
+	var modal = $uibModal.open({
+        controller:"userController",
+        templateUrl:'partial/login.html',
+          resolve: {
+            items:function(){return {};}
+          }
+    });
+    modal.result.then(function(username){
+      $scope.username = username;
+      $scope.greetings = 'Hi ' + username + '!';
+    });
+  };
+  $scope.showRegistration= function(){
+	var modal = $uibModal.open({
+        controller:"userController",
+        templateUrl:'partial/registration.html',
+          resolve: {
+            items:function(){return {};}
+          }
+    });
+    modal.result.then(function(username){
+      $scope.username = username;
+      $scope.greetings = 'Hi ' + username + '!';
+    });
+  };
+  $scope.checkStatus=function() {
+      $http.get('status').success(function(response){
+        alert(response);
+		console.log(response);
+      });
+  }; 
+  $scope.logout=function() {
+      $http.get('logout').success(function(response){
+		console.log(response);
+		$scope.username = "";
+		$scope.greetings = '';
+      });
+  }; 
 });
 
-localAdvisorApp.controller('loginController', function ($scope, $http, $uibModalInstance, items) {
+localAdvisorApp.controller('userController', function ($scope, $http, $uibModalInstance, items) {
   $scope.loginUser = function() {
       $http.post('login',$scope.login)
       .success(function(response){
@@ -98,7 +123,15 @@ localAdvisorApp.controller('loginController', function ($scope, $http, $uibModal
       });
   };
 
+  $scope.register = function() {
+      $http.post('register',$scope.user)
+      .success(function(response){
+		$uibModalInstance.close($scope.user.username);
+      });
+  };
+
   $scope.cancel = function () {
     $uibModalInstance.dismiss('cancel');
   }; 
 });
+

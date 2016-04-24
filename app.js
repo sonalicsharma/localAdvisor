@@ -28,7 +28,6 @@ app.use("/bower_components", express.static(__dirname+ "/bower_components"));
 
 app.use('/eventful', eventful);
 app.use('/yelp', yelp);
-//app.use('/register', register);
 // passport config
 var Accounts = require('./models/account');
 passport.use(new LocalStrategy(Accounts.authenticate()));
@@ -51,12 +50,31 @@ app.post('/register', function(req, res) {
         });
     });
 });
+
 app.post('/login', passport.authenticate('local'), function(req, res) {
   console.log('success');
+  console.log(req.isAuthenticated());
   res.redirect('/');
 });
 
+app.get('/logout', function(req, res) {
+  req.logout();
+  res.status(200).json({
+    status: 'Bye!'
+  });
+});
 
+app.get('/status', function(req, res) {
+  console.log(req.isAuthenticated());
+  if (!req.isAuthenticated()) {
+    return res.status(200).json({
+      status: false
+    });
+  }
+  res.status(200).json({
+    status: true
+  });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
