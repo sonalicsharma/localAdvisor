@@ -56,7 +56,6 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
   
   $scope.weather = weatherService.getWeather($scope.lat, $scope.lon);
   
-  
   $scope.setLocation = function(location) {
     $scope.yelplistings = [];
     $scope.coffeelistings = [];
