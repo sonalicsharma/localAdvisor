@@ -20,6 +20,11 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
     $scope.nightlifelistings = data;
   });
   $http.get('eventful/' + $scope.location).success(function(data) {
+    console.log(data);
+    $.each(data, function(index,entry) {
+      entry.name = entry.title;
+    });
+    console.log(data);
     $scope.eventlistings = data;
   });
 
@@ -30,6 +35,10 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
   }
 
   $scope.addFavorite = function(listing, category) {
+    if (!$scope.isLoggedIn()) {
+      alert("Please sign up to mange your favorites.");
+      return;
+    }
     var favorite = {};
     if (category) {
       favorite.category = category;
@@ -83,7 +92,10 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
   });
 
   $http.get('expedia/' + $scope.lat + ',' + $scope.lon).success(function(data) {
-    console.log(data);
+    $.each(data, function(index, entry) {
+      entry.url = entry.DetailsUrl;
+      entry.name = entry.Name;
+    });
     $scope.hotels = data;
   });
   $scope.weather = weatherService.getWeather($scope.lat, $scope.lon, $scope.location);
@@ -117,13 +129,21 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
 		  $scope.nightlifelistings = data;
 		});
 		$http.get('eventful/' + $scope.location).success(function(data) {
-		  $scope.eventlistings = data;
+      console.log(data);
+      $.each(data, function(index, entry) {
+        entry.name = entry.title;
+      });
+      console.log(data);
+      $scope.eventlistings = data;
 		});
        $http.get('yelp/Active Life/'+ $scope.location).success(function(data) {
 		  $scope.ActiveLifelistings = data;
 		});
         $http.get('expedia/' + $scope.lat + ',' + $scope.lon).success(function(data) {
-        console.log(data);
+          $.each(data, function(index, entry) {
+            entry.url = entry.DetailsUrl;
+            entry.name = entry.Name;
+          });
         $scope.hotels = data;
       });
 	});
