@@ -51,6 +51,7 @@
   <script src='bower_components/angular-google-maps/dist/angular-google-maps.min.js'></script>
   <script src="../bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
   <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
   <script type="text/javascript" src="../js/SmoothScroll.js"></script>
   <script type="text/javascript" src="../js/jquery.isotope.js"></script>
 
@@ -102,11 +103,11 @@
                	  </span>
             </div>
           </li>
-          <li><a href="#tf-home" class="page-scroll">Home</a></li>
-          <li><a href="#tf-services" class="page-scroll">Services</a></li>
+          <li><a ng-href="#tf-home" class="page-scroll">Home</a></li>
+          <li><a ng-href="#tf-services" class="page-scroll">Services</a></li>
           <li><a ng-href="#tf-favorites" ng-show="isLoggedIn()" class="page-scroll">Favorites</a></li>
-          <li><a href="#tf-about" class="page-scroll">About</a></li>
-          <li><a href="#tf-contact" class="page-scroll">Contact</a></li>
+          <li><a ng-href="#tf-about" class="page-scroll">About</a></li>
+          <li><a ng-href="#tf-contact" class="page-scroll">Contact</a></li>
           <li><a ng-href="" ng-hide="isLoggedIn()" ng-click="showRegistration()" class="page-scroll">Sign Up</a></li>
           <li><a ng-href="" ng-hide="isLoggedIn()" ng-click="showLogin()" class="page-scroll">Sign In</a></li>
           <!--li><a ng-href="" ng-click="checkStatus()" class="page-scroll">Check Status</a></li-->
@@ -191,12 +192,11 @@
           <div class="panel panel-warning">
             <div class="panel-heading">
               <h3 class="panel-title">Weather in {{weather.temp.location}}
-                          <span class="pull-right glyphicon glyphicon-cloud clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>
-                      </h3>
+                <span class="pull-right glyphicon glyphicon-cloud clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>
+              </h3>
             </div>
             <!-- end panel-heading -->
-
-            <weather-icon cloudiness="{{ weather.clouds }}"></weather-icon>
+            <div style="float:center"><img style="height: 100px; width: 100px;" ng-src="http://openweathermap.org/img/w/{{weather.icon}}.png"></div>
             <h3>Current: {{ weather.temp.current | temp:1 }}</h3> Min: {{ weather.temp.min | temp }}, Max: {{ weather.temp.max | temp }}
           </div>
           <!-- end panel -->

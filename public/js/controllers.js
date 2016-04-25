@@ -252,6 +252,7 @@ localAdvisorApp.factory('weatherService', function($http) {
             weather.temp.min = data.main.temp_min;
             weather.temp.max = data.main.temp_max;
             weather.temp.location = location;
+            weather.icon = data.weather[0].icon;
           }
           weather.clouds = data.clouds ? data.clouds.all : undefined;
         }
@@ -269,28 +270,5 @@ localAdvisorApp.filter('temp', function($filter) {
     }
     var numberFilter = $filter('number');
     return numberFilter(input, precision) + '\u00B0F';
-  };
-});
-
-localAdvisorApp.directive('weatherIcon', function() {
-  return {
-    restrict: 'E',
-    replace: true,
-    scope: {
-      cloudiness: '@'
-    },
-    controller: function($scope) {
-      $scope.imgurl = function() {
-        var baseUrl = 'https://ssl.gstatic.com/onebox/weather/128/';
-        if ($scope.cloudiness < 20) {
-          return baseUrl + 'sunny.png';
-        } else if ($scope.cloudiness < 90) {
-          return baseUrl + 'partly_cloudy.png';
-        } else {
-          return baseUrl + 'cloudy.png';
-        }
-      };
-    },
-    template: '<div style="float:center"><img ng-src="{{ imgurl() }}"></div>'
   };
 });
