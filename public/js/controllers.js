@@ -50,8 +50,6 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
     console.log($scope.favorite);
     $http.put('favorites/'+$scope.favorite._id, $scope.favorite)
     .success(function(data) {
-      //$scope.favorites = $.grep($scope.favorites, function(entry) { return entry._id !== id;});
-      //$scope.favorites.push(data);
       $scope.favorite={};
     });
   };

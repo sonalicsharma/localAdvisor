@@ -21,7 +21,7 @@ router.put('/:_id', function(req, res) {
   console.log(req.body);
   db.favorites.findAndModify({
                               query: {_id: db.ObjectId(req.params._id)},
-                              update: {$set: {category:req.body.category, name: req.body.name, url: req.body.url}},
+                              update: {$set: {category:req.body.category, name: req.body.name, url: req.body.url, notes:req.body.notes}},
                               new: true
                             },function(err,doc){
                                 res.json(doc);

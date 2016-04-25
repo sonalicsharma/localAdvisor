@@ -101,6 +101,7 @@
             <li><a href="#tf-home" class="page-scroll">Home</a></li>
             <li><a href="#tf-about" class="page-scroll">About</a></li>
             <li><a href="#tf-services" class="page-scroll">Services</a></li>
+            <li><a ng-href="#tf-favorites" ng-show="isLoggedIn()" class="page-scroll">Favorites</a></li>
             <li><a href="#tf-contact" class="page-scroll">Contact</a></li>
             <li><a ng-href="" ng-hide="isLoggedIn()" ng-click="showRegistration()" class="page-scroll">Sign Up</a></li>
             <li><a ng-href="" ng-hide="isLoggedIn()" ng-click="showLogin()" class="page-scroll">Sign In</a></li>
@@ -306,7 +307,7 @@
 			</div>
         </div>
     </div>
-    <div ng-include="'partial/favorites.html'"></div>
+    <div id='tf-favorites' ng-include="'partial/favorites.html'"></div>
     <!-- About Us Page
     ==========================================-->
     <div id="tf-about">

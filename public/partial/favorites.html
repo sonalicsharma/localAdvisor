@@ -6,53 +6,62 @@
           <span class="pull-right glyphicon glyphicon-star clickable_space"></span>
         </h3>
       </a>
-    </div><!-- end panel-heading -->
+    </div>
+    <!-- end panel-heading -->
     <div id="favoritePanel" class="panel-body panel-collapse">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Category</th>
-        <th>Name</th>
-        <th>Link</th>
-        <th>Action</th>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <input class="form-control" ng-model="favorite.category">
-        </td>
-        <td>
-          <input class="form-control" ng-model="favorite.name">
-        </td>
-        <td>
-          <input class="form-control" ng-model="favorite.url">
-        </td>
-        <td>
-          <button class="btn btn-primary" ng-click="addFavorite()">Add New</button>
-        </td>
-        <td>
-          <button class="btn btn-info" ng-click="updateFavorite()">Update</button>
-        </td>
-        <td>
-          <button class="btn btn-info" ng-click="deselectFavorite()">Clear</button>
-        </td>
-      </tr>
+      <form class="form-inline" role="form">
+        <div class="row">
+          <div class="form-group">
+            <label for="fav_category">Category:</label>
+            <input type="text" class="form-control" id="fav_category" ng-model="favorite.category">
+          </div>
+          <div class="form-group">
+            <label for="fav_name">Name:</label>
+            <input type="text" class="form-control" id="fav_name" ng-model="favorite.name">
+          </div>
+          <div class="form-group">
+            <label for="fav_url">URL:</label>
+            <input type="text" class="form-control" id="fav_url" ng-model="favorite.url">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label for="fav_notes">Your Notes:</label>
+            <textarea class="form-control" id="fav_notes" ng-model="favorite.notes"></textarea>
+          </div>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" ng-click="addFavorite()">Add New</button>
+            <button class="btn btn-info" ng-click="updateFavorite()">Update</button>
+            <button class="btn btn-info" ng-click="deselectFavorite()">Clear</button>
+        </div>
+      </form>
 
-      <tr ng-repeat="entry in favorites">
-        <td>{{entry.category}}</td>
-        <td>{{entry.name}}</td>
-        <td><a href="{{entry.url}}" target='_blank'>{{entry.url}}</a></td>
-        <td>
-          <button class="btn btn-danger" ng-click="removeFavorite(entry._id)">Remove</button>
-        </td>
-        <td>
-          <button class="btn btn-warning" ng-click="setFavorite(entry)">Edit</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Name</th>
+            <th>Link</th>
+            <th>Notes</th>
+            <th>Action</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="entry in favorites">
+            <td>{{entry.category}}</td>
+            <td>{{entry.name}}</td>
+            <td><a href="{{entry.url}}" target='_blank'>{{entry.url}}</a></td>
+            <td>{{entry.notes}}</td>
+            <td>
+              <button class="btn btn-danger" ng-click="removeFavorite(entry._id)">Remove</button>
+            </td>
+            <td>
+              <button class="btn btn-warning" ng-click="setFavorite(entry)">Edit</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
