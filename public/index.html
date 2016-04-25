@@ -192,7 +192,7 @@
 							  <img class="thumb" ng-src="{{listing.image_url}}" alt="{{listing.name}}">
 							  <span>{{listing.name}} <img ng-src="{{listing.rating_img_url}}" alt="{{listing.rating}}"><a class="pull-right"  target="_blank" href="{{listing.url}}">(Go to Yelp)</a></span>
 							  <p>{{listing.location.display_address.join(', ')}}</p>
-							  <p>{{listing.display_phone}} <button class="btn btn-info pull-right" ng-click="addFavorite(listing, 'Restaurant')">(+)</button></p>
+
 							</li>
 						  </ul>
 						<!--a href=# target="_blank" class="btn btn-warning btn-block">See More..</a>-->
@@ -270,8 +270,8 @@
 							  <span>{{listing.name}} <img ng-src="{{listing.rating_img_url}}" alt="{{listing.rating}}"><a class="pull-right"  target="_blank" href="{{listing.url}}">(Go to Yelp)</a></span>
 							  <p>{{listing.location.display_address.join(', ')}}</p>
 							  <p>{{listing.display_phone}}
-                  <button class="btn btn-info pull-right" ng-if="isLoggedIn() && isFavorite(listing.name, 'Active Life')" ng-click="removeFavorite(listing.name, 'Active Life')"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></button>
-                  <button class="btn btn-info pull-right" ng-if="!isLoggedIn() || !isFavorite(listing.name, 'Active Life')" ng-click="addFavorite(listing, 'Active Life')"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></button>
+                  <button class="btn btn-link pull-right" ng-if="isLoggedIn() && isFavorite(listing.name, 'Active Life')" ng-click="removeFavorite(listing.name, 'Active Life')"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></button>
+                  <button class="btn btn-link pull-right" ng-if="!isLoggedIn() || !isFavorite(listing.name, 'Active Life')" ng-click="addFavorite(listing, 'Active Life')"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></button>
                 </p>
 							</li>
 						  </ul>

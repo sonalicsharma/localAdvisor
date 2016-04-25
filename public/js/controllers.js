@@ -34,7 +34,7 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
     if (category) {
       favorite.category = category;
       favorite.name = (listing.name) ? listing.name : listing;
-      favorite.link = listing.url;
+      favorite.url = listing.url;
     } else {
       favorite = $scope.favorite;
     }
@@ -43,6 +43,16 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
     $http.post('favorites', favorite)
     .success(function(data) {
       $scope.favorites.push(data);
+      $scope.favorite={};
+    });
+  };
+  $scope.updateFavorite = function() {
+    console.log($scope.favorite);
+    $http.put('favorites/'+$scope.favorite._id, $scope.favorite)
+    .success(function(data) {
+      //$scope.favorites = $.grep($scope.favorites, function(entry) { return entry._id !== id;});
+      //$scope.favorites.push(data);
+      $scope.favorite={};
     });
   };
   $scope.removeFavorite = function(listing, category) {
@@ -51,6 +61,12 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
   	.success(function(data) {
   	  $scope.favorites = $.grep($scope.favorites, function(entry) { return entry._id !== id;});
   	});
+  };
+  $scope.setFavorite=function(entry){
+   $scope.favorite=entry;
+  };
+  $scope.deselectFavorite=function(){
+   $scope.favorite={};
   };
 
   $scope.$watch("username", function(newValue, oldValue) {

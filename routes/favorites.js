@@ -17,6 +17,17 @@ router.post('/', function(req, res) {
   });
 });
 
+router.put('/:_id', function(req, res) {
+  console.log(req.body);
+  db.favorites.findAndModify({
+                              query: {_id: db.ObjectId(req.params._id)},
+                              update: {$set: {category:req.body.category, name: req.body.name, url: req.body.url}},
+                              new: true
+                            },function(err,doc){
+                                res.json(doc);
+                            });
+});
+
 router.delete('/:_id', function(req, res) {
   console.log(req.params);
   db.favorites.remove({_id: db.ObjectId(req.params._id)},function(err,doc){
