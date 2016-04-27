@@ -46,7 +46,7 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
 
   $scope.addFavorite = function(listing, category) {
     if (!$scope.isLoggedIn()) {
-      alert("Please sign up to mange your favorites.");
+      alert("Please sign up to manage your favorites.");
       return;
     }
     var favorite = {};
@@ -253,6 +253,11 @@ localAdvisorApp.factory('weatherService', function($http) {
             weather.temp.max = data.main.temp_max;
             weather.temp.location = location;
             weather.icon = data.weather[0].icon;
+            weather.pressure = data.main.pressure;
+            weather.humidity= data.main.humidity;
+            weather.condition=data.weather[0].description;
+            weather.wind=data.wind.speed;
+            
           }
           weather.clouds = data.clouds ? data.clouds.all : undefined;
         }

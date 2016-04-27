@@ -137,7 +137,7 @@
     <div class="container">
       <div class="section-title circle">
         <h2>Get all information for your <strong>city</strong></h2>
-        </br>
+        
         <div class="clearfix"></div>
         <em>Explore your options...</em>
       </div>
@@ -182,25 +182,31 @@
     </div>
   </div>
 
-
   <!-- Search Page
     ==========================================-->
   <div id="tf-search" class="text-center">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <div class="panel panel-warning">
+          <div class="panel panel-warning panel-background">
             <div class="panel-heading">
               <h3 class="panel-title">Weather in {{weather.temp.location}}
                 <span class="pull-right glyphicon glyphicon-cloud clickable_space" data-toggle="collapse" data-parent="#the_items" data-target="#n_1"></span>
               </h3>
             </div>
             <!-- end panel-heading -->
-            <div style="float:center"><img style="height: 100px; width: 100px;" ng-src="http://openweathermap.org/img/w/{{weather.icon}}.png"></div>
-            <h3>Current: {{ weather.temp.current | temp:1 }}</h3> Min: {{ weather.temp.min | temp }}, Max: {{ weather.temp.max | temp }}
+            <div style="float:center"><img style="height: 85px; width: 85px;" ng-src="http://openweathermap.org/img/w/{{weather.icon}}.png"></div>
+             <h3>Current: {{ weather.temp.current | temp:1 }}</h3>           
+                <ul id="weather" class = "list-group">
+                  <li class = "list-group-item"><b>Min: </b>{{ weather.temp.min | temp }} &nbsp;&nbsp;&nbsp;&nbsp;  <b>Max:</b> {{ weather.temp.max | temp }}</li>           
+                  <li class = "list-group-item"><b>Pressure:</b> {{weather.pressure}}&nbsp;&nbsp;&nbsp;&nbsp; <b>Humidity:</b> {{weather.humidity}}</li>
+                  <li class = "list-group-item"><b>Condition:</b> {{weather.condition}}</li>
+                  <li class = "list-group-item"><b>Wind Speed(mph):</b> {{weather.wind}} </li>
+               </ul>
+          </div>
           </div>
           <!-- end panel -->
-        </div>
+        
         <div class="col-md-6">
           <div class="panel panel-warning">
             <div class="panel-heading">
@@ -211,8 +217,9 @@
             <!-- end panel-heading -->
             <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
           </div>
+          </div>
         </div>
-      </div>
+      
       <div id="first" class="row">
         <div class="col-md-6 feature">
           <div class="panel panel-success">
@@ -487,8 +494,6 @@
       </div>
     </div>
   </nav>
-
-
 
 
   <!-- Javascripts

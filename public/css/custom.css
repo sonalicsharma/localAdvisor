@@ -51,3 +51,20 @@ li .input-group {
 #tf-services a:hover {
     color: orange;
 }
+
+.panel-background{
+  background-color: dimgray;
+  color:aliceblue;
+  
+  
+}
+#weather{
+  background-color: dimgray;
+  color:aliceblue;
+}
+
+#weather li{
+  background-color: dimgray;
+}
+
+
