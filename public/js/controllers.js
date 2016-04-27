@@ -95,9 +95,7 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
     if (!newValue) {
       return;
     }
-    $http.get('favorites', {
-        user: newValue
-      })
+    $http.get('favorites?user=' + newValue)
       .success(function(data) {
         $scope.favorites = data;
       });
