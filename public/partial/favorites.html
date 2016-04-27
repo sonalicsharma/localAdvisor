@@ -12,34 +12,32 @@
       <form class="form-inline" role="form">
         <div class="row">
           <div class="form-group col-md-3">
-            <label for="fav_category">Category:</label>
+            <label for="fav_category"><strong>Category: </strong></label>
             <input type="text" class="form-control" id="fav_category" ng-model="favorite.category">
           </div>
           <div class="form-group col-md-3">
-            <label for="fav_name">Name:</label>
+            <label for="fav_name"><strong>Name: </strong></label>
             <input type="text" class="form-control" id="fav_name" ng-model="favorite.name">
           </div>
           <div class="form-group col-md-6">
-            <label for="fav_url">URL:</label>
+            <label for="fav_url"><strong>URL: </strong></label>
             <input type="text" class="form-control" id="fav_url" ng-model="favorite.url">
           </div>
         </div>
         <br>
         <div class="row">
           <div class="form-group col-md-12">
-            <label for="fav_notes">Your Notes:  </label>
+            <label for="fav_notes"><strong>Your Notes: </strong></label>
             <textarea class="form-control" id="fav_notes" ng-model="favorite.notes"></textarea>
           </div>
         </div>
         <br>
         <div class="row">
+          <div class="col-md-6">
           <button class="btn btn-primary" ng-click="addFavorite()">Add New</button>
-       
-        
           <button class="btn btn-success" ng-click="updateFavorite()">Update</button>
-        
-          
           <button class="btn btn-warning" ng-click="deselectFavorite()">Clear</button>
+          </div>
         </div>
       </form>
 
