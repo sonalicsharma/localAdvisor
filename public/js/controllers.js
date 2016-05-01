@@ -1,10 +1,9 @@
 angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$http', 'uiGmapGoogleMapApi', '$uibModal', 'AuthService', 'weatherService', function($scope, $http, uiGmapGoogleMapApi, $uibModal, AuthService, weatherService) {
   $scope.username = "";
-
   $scope.location = 'Champaign, IL';
   $scope.lat = "40.1164204";
   $scope.lon = "-88.2433829";
-  $scope.weatherUrl = 'http://forecast.io/embed/#lat=' + $scope.lat + '&lon=' + $scope.lon + '&name=' + $scope.location;
+
   uiGmapGoogleMapApi.then(function(maps) {
     $scope.map = {
       center: {
@@ -16,24 +15,6 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
     $scope.options = {
       scrollwheel: false
     };
-  });
-
-  $http.get('yelp/restaurants/' + $scope.location).success(function(data) {
-    $scope.yelplistings = data;
-  });
-  $http.get('yelp/coffee/' + $scope.location).success(function(data) {
-    $scope.coffeelistings = data;
-  });
-  $http.get('yelp/nightlife/' + $scope.location).success(function(data) {
-    $scope.nightlifelistings = data;
-  });
-  $http.get('eventful/' + $scope.location).success(function(data) {
-    console.log(data);
-    $.each(data, function(index, entry) {
-      entry.name = entry.title;
-    });
-    console.log(data);
-    $scope.eventlistings = data;
   });
 
   $scope.favorites = [];
@@ -57,7 +38,6 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
     } else {
       favorite = $scope.favorite;
     }
-    console.log(favorite);
     favorite.user = AuthService.getUser();
     $http.post('favorites', favorite)
       .success(function(data) {
@@ -101,19 +81,6 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
       });
   });
 
-  $http.get('yelp/Active Life/' + $scope.location).success(function(data) {
-    $scope.ActiveLifelistings = data;
-  });
-
-  $http.get('expedia/' + $scope.lat + ',' + $scope.lon).success(function(data) {
-    $.each(data, function(index, entry) {
-      entry.url = entry.DetailsUrl;
-      entry.name = entry.Name;
-    });
-    $scope.hotels = data;
-  });
-  $scope.weather = weatherService.getWeather($scope.lat, $scope.lon, $scope.location);
-
   $scope.setLocation = function(location) {
     $scope.yelplistings = [];
     $scope.coffeelistings = [];
@@ -125,14 +92,6 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
       $scope.location = data.results[0].formatted_address;
       $scope.lat = data.results[0].geometry.location.lat;
       $scope.lon = data.results[0].geometry.location.lng;
-      $scope.weatherUrl = 'http://forecast.io/embed/#lat=' + $scope.lat + '&lon=' + $scope.lon + '&name=' + $scope.location;
-      $('#forecast_embed').attr('src', function(i, val) {
-        return val;
-      });
-      //alert($scope.weatherUrl);
-
-      $scope.weather = weatherService.getWeather($scope.lat, $scope.lon, $scope.location);
-
       $scope.map = {
         center: {
           latitude: $scope.lat,
@@ -141,6 +100,7 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
         zoom: 12
       };
 
+      $scope.weather = weatherService.getWeather($scope.lat, $scope.lon, $scope.location);
       $http.get('yelp/restaurants/' + $scope.location).success(function(data) {
         $scope.yelplistings = data;
       });
@@ -150,16 +110,14 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
       $http.get('yelp/nightlife/' + $scope.location).success(function(data) {
         $scope.nightlifelistings = data;
       });
+      $http.get('yelp/Active Life/' + $scope.location).success(function(data) {
+        $scope.ActiveLifelistings = data;
+      });
       $http.get('eventful/' + $scope.location).success(function(data) {
-        console.log(data);
         $.each(data, function(index, entry) {
           entry.name = entry.title;
         });
-        console.log(data);
         $scope.eventlistings = data;
-      });
-      $http.get('yelp/Active Life/' + $scope.location).success(function(data) {
-        $scope.ActiveLifelistings = data;
       });
       $http.get('expedia/' + $scope.lat + ',' + $scope.lon).success(function(data) {
         $.each(data, function(index, entry) {
@@ -173,6 +131,7 @@ angular.module('localAdvisorApp').controller('localAdvisorCtrl', ['$scope', '$ht
       scrollTop: $('#tf-search').offset().top - 50
     }, 1000);
   };
+  $scope.setLocation($scope.location);
 
   $scope.showLogin = function() {
     var modal = $uibModal.open({

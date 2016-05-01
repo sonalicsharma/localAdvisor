@@ -80,6 +80,7 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
           <li>
+            <form ng-submit="setLocation(location)">
             <div class="input-group page-scroll">
               <input type="search" class="form-control input-sm" placeholder="Please type a location.." ng-model="location">
               <div class="input-group-btn">
@@ -96,9 +97,10 @@
               </div>
               <!-- /btn-group -->
               <span class="input-group-btn">
-                    <button class="btn btn-primary btn-sm" ng-click="setLocation(location)" > Search  </button>
+                    <button type="submit" class="btn btn-primary btn-sm" > Search </button>
                	  </span>
             </div>
+            </form>
           </li>
           <li><a ng-href="#tf-home" class="page-scroll">Home</a></li>
           <li><a ng-href="#tf-services" class="page-scroll">Services</a></li>
