@@ -112,5 +112,3 @@ angular.module('localAdvisorApp').factory('AuthService', ['$q', '$timeout', '$ht
     }
   }
 ]);
-
-//angular.module('localAdvisorApp').factory(

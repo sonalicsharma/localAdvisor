@@ -252,10 +252,10 @@ localAdvisorApp.factory('weatherService', function($http) {
             weather.temp.location = location;
             weather.icon = data.weather[0].icon;
             weather.pressure = data.main.pressure;
-            weather.humidity= data.main.humidity;
-            weather.condition=data.weather[0].description;
-            weather.wind=data.wind.speed;
-            
+            weather.humidity = data.main.humidity;
+            weather.condition = data.weather[0].description;
+            weather.wind = data.wind.speed;
+
           }
           weather.clouds = data.clouds ? data.clouds.all : undefined;
         }

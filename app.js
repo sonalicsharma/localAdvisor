@@ -7,15 +7,13 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
+var yelp = require('./routes/yelp');
+
 var eventful = require('./routes/eventful');
 var yelp = require('./routes/yelp');
 var favorites = require('./routes/favorites');
 var expedia = require('./routes/expedia');
 var app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -27,7 +25,7 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use("/bower_components", express.static(__dirname + "/bower_components"));
+app.use("/bower_components", express.static(path.join(__dirname, 'bower_components')));
 
 app.use('/eventful', eventful);
 app.use('/yelp', yelp);

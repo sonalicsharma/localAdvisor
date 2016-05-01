@@ -18,24 +18,21 @@
   <!-- Favicons
     ================================================== -->
   <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
 
   <!-- Stylesheet
     ================================================== -->
   <!-- Bootstrap -->
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="../fonts/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css">
 
   <!-- Slider -->
   <link href="../css/owl.carousel.css" rel="stylesheet" media="screen">
   <link href="../css/owl.theme.css" rel="stylesheet" media="screen">
 
-  <link rel="stylesheet" type="text/css" href="../css/style.css">
-  <link rel="stylesheet" type="text/css" href="../css/custom.css">
-  <link rel="stylesheet" type="text/css" href="../css/responsive.css">
-  <link rel="stylesheet" type="text/css" href="../css/bootstrap.icon-large.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/custom.css">
+  <link rel="stylesheet" type="text/css" href="css/responsive.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.icon-large.min.css">
 
   <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400' rel='stylesheet' type='text/css'>
@@ -49,13 +46,13 @@
   <script src="bower_components/angular/angular.min.js"></script>
   <script src='bower_components/angular-simple-logger/dist/angular-simple-logger.min.js'></script>
   <script src='bower_components/angular-google-maps/dist/angular-google-maps.min.js'></script>
-  <script src="../bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
-  <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 
-  <script type="text/javascript" src="../js/SmoothScroll.js"></script>
-  <script type="text/javascript" src="../js/jquery.isotope.js"></script>
+  <script type="text/javascript" src="js/SmoothScroll.js"></script>
+  <script type="text/javascript" src="js/jquery.isotope.js"></script>
 
-  <script src="../js/owl.carousel.js"></script>
+  <script type="text/javascript" src="js/owl.carousel.js"></script>
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -137,7 +134,7 @@
     <div class="container">
       <div class="section-title circle">
         <h2>Get all information for your <strong>city</strong></h2>
-        
+
         <div class="clearfix"></div>
         <em>Explore your options...</em>
       </div>
@@ -196,9 +193,9 @@
             </div>
             <!-- end panel-heading -->
             <div style="float:center"><img style="height: 85px; width: 85px;" ng-src="http://openweathermap.org/img/w/{{weather.icon}}.png"></div>
-             <h3>Current: {{ weather.temp.current | temp:1 }}</h3>           
+             <h3>Current: {{ weather.temp.current | temp:1 }}</h3>
                 <ul id="weather" class = "list-group">
-                  <li class = "list-group-item"><b>Min: </b>{{ weather.temp.min | temp }} &nbsp;&nbsp;&nbsp;&nbsp;  <b>Max:</b> {{ weather.temp.max | temp }}</li>           
+                  <li class = "list-group-item"><b>Min: </b>{{ weather.temp.min | temp }} &nbsp;&nbsp;&nbsp;&nbsp;  <b>Max:</b> {{ weather.temp.max | temp }}</li>
                   <li class = "list-group-item"><b>Pressure:</b> {{weather.pressure}}&nbsp;&nbsp;&nbsp;&nbsp; <b>Humidity:</b> {{weather.humidity}}</li>
                   <li class = "list-group-item"><b>Condition:</b> {{weather.condition}}</li>
                   <li class = "list-group-item"><b>Wind Speed(mph):</b> {{weather.wind}} </li>
@@ -206,7 +203,7 @@
           </div>
           </div>
           <!-- end panel -->
-        
+
         <div class="col-md-6">
           <div class="panel panel-warning">
             <div class="panel-heading">
@@ -219,7 +216,7 @@
           </div>
           </div>
         </div>
-      
+
       <div id="first" class="row">
         <div class="col-md-6 feature">
           <div class="panel panel-success">
@@ -498,7 +495,7 @@
 
   <!-- Javascripts
     ================================================== -->
-  <script type="text/javascript" src="../js/main.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
 
   <script src="js/app.js"></script>
   <script src="js/services.js"></script>
