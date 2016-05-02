@@ -59,64 +59,65 @@ http://localhost:3001
 ### Basic Layout:
 The home page of the application. On signing in, the welcome message displays the user name.
 
-<img src="public/img/default.png" width="350"/>
+<img src="public/img/default.png" width="500"/>
 
 Services section shows the informations available about the searched location.
 
-<img src="public/img/service.png" width="350"/>
+<img src="public/img/service.png" width="500"/>
 
 About section is a brief summary about the motive behind the application.
-<img src="public/img/about.png" width="350"/>
+
+<img src="public/img/about.png" width="500"/>
 
 Contact section:
 
-<img src="public/img/contact.png" width="350"/>
+<img src="public/img/contact.png" width="500"/>
 
 Sign Up popup allows you to create a profile. You may then sign in to save searched locations and favorite listings.
 
-<img src="public/img/signUp.png" width="350"/>
+<img src="public/img/signUp.png" width="500"/>
 
 Sign In popup form:
 
-<img src="public/img/signIn.png" width="350"/>
+<img src="public/img/signIn.png" width="500"/>
 
 After successful sign in:
 
-<img src="public/img/sucessSignIn.png" width="350"/>
+<img src="public/img/sucessSignIn.png" width="500"/>
 
 ### Search functionality:
 
 Search results for London, UK. They will be available under Services section.
 
-<img src="public/img/search1.png" width="350"/>
+<img src="public/img/search1.png" width="500"/>
 
-<img src="public/img/search2.png" width="350"/>
+<img src="public/img/search2.png" width="500"/>
 
-<img src="public/img/search3.png" width="350"/>
+<img src="public/img/search3.png" width="500"/>
 
-<img src="public/img/search4.png" width="350"/>
+<img src="public/img/search4.png" width="500"/>
 
 ### Favorite Cities:
 After signing in, you may bookmark a searched location to favorite list.
 
-<img src="public/img/FavCity1.png" width="350"/>
+<img src="public/img/FavCity1.png" width="500"/>
 
-<img src="public/img/FavCity2.png" width="350"/>
+<img src="public/img/FavCity2.png" width="500"/>
 
 London is successfully added to the favorite city list.
 
-<img src="public/img/FavCity3.png" width="350"/>
+<img src="public/img/FavCity3.png" width="500"/>
 
 ### Favorite Listings:
 
 Favorite listing functionality allows users to save their favorite listing in various categories for future references. They can favorite/unfavorite it clicking by the star near the listing
 
-<img src="public/img/list1.png" width="350"/>
+<img src="public/img/list1.png" width="500"/>
 
 Users can view their favorite added listing in the favorites section. The favorite section also preserves the links to the original detail pages from the 3rd party apis so that the user can directly navigate there.
 
-<img src="public/img/list2.png" width="350"/>
+<img src="public/img/list2.png" width="500"/>
 
 Users can also add notes to refer later. They can also add custom favorites and remove existing favorites.
 
-<img src="public/img/list3.png" width="350"/>
+<img src="public/img/list3.png" width="500"/>
