@@ -13,6 +13,7 @@
     "eventful-node": "^1.1.1",
     "express": "~4.12.2",
     "jade": "~1.9.2",
+    "moment": "^2.13.0",
     "mongojs": "^2.3.0",
     "mongoose": "^4.4.12",
     "morgan": "~1.5.1",
